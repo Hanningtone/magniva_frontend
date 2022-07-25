@@ -19,38 +19,33 @@ const AmenitiesForm = (props: Props) => {
 
     const schema = {
       
-         room_type_id : {
+         event_id : {
             type: 'db_select',
-            label : 'Room Type ',
-            model : 'room-types',
-            model_display_col : ['title'],
-            placeholder : 'Choose Room Type',
+            label : ' Event ',
+            model : 'magniva-events',
+            model_display_col : ['event_title'],
+            placeholder : 'Select Event',
          },
-         name : {
-            type: 'text',
-            label : 'Amenity Name ',
-            placeholder : 'Enter Room Number',
-            required : true
+         invite_id : {
+            type: 'db_select',
+            label : 'Invites ',
+            model : 'invites',
+            model_display_col : ['invite_message'],
+            placeholder : 'Select Invite Title ',
          },
-         description : {
-            type: 'textarea',
-            label : 'Amenity Description ',
-            placeholder : 'Enter Amenity Description',
-            required : true
+         attendee_id : {
+            type: 'db_select',
+            label : 'Name ',
+            model : 'attendees',
+            model_display_col : ['first_name'],
+            placeholder : 'Choose Attendee Name ',
          },
-         extra_cost : {
-            type: 'text',
-            label : 'Amenity Extra Cost',
-            placeholder : 'Enter Extra Cost',
-            required : true
-         },
-         
-         
+        
 
     }
 
     const [label, setLabel] = useState(submitTitle);
-    const [endpoint, setEndpoint] = useState("/room-amenities/create");
+    const [endpoint, setEndpoint] = useState("/attendance/create");
     const [amenitiesSchema, setAmenitiesSchema] = useState(schema);
 
     
@@ -60,7 +55,7 @@ const AmenitiesForm = (props: Props) => {
         if(selectedRecord){
            
             setLabel('Update Record');
-            setEndpoint('/room-amenities/update/' + selectedRecord.id)
+            setEndpoint('/attendance/update/' + selectedRecord.id)
            
             let editSchema : any = Object.assign({}, schema);
             Object.entries(selectedRecord).map(([key, value]) => {

@@ -13,8 +13,8 @@ export { default as UsersList } from './users/UsersList';
 export { default as LineChart } from './dashboard/LineChart';
 export { default as BookingSummary } from './dashboard/BookingsSummary';
 export { default as SideMenu} from './shared/SideMenu';
-export { default as MagnivaModal} from './shared/MagnivaModal';
-export { default as CategoriesForm} from './forms/CategoriesForm';
+export { default as MagnivaModal} from './shared/UncoverModal';
+export { default as MagnivaEventsForm} from './forms/MagnivaEventsForm';
 export { default as MarketsForm} from './forms/MarketsForm';
 export { default as HotelForm } from './forms/HotelForm';
 export { default as CustomerTabs } from './customers/CustomerTabs'

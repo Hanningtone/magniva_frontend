@@ -287,6 +287,7 @@ export const initForm = (formSchema) => {
     let formData = {};
     let validationSchema = {};
     for(var key of Object.keys(formSchema)){
+        console.log("Foem schema value", key, formSchema);
         formData[key] = formSchema[key].value ||  "";
         if(formSchema[key].type === "text"){
             validationSchema[key] = Yup.string();

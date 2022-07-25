@@ -1,27 +1,37 @@
 import styled from "styled-components";
+import makeRequest from "../../utils/fetch-request"
+import {useEffect, useState, useCallback } from "react";
+import DataTable from "../../utils/table";
 
 interface Props {
     users?: string,
 }
 
+
+
 const BookingSummary= (props: Props) => {
+
+    const [upcomingEvents, setUpcomingEvents]  = useState(null);
+
+    const fetchUpcomingEvents = useCallback(() => {
+        let endpoint = "/magniva-events/get?limit=20"
+        makeRequest({url:endpoint, method:"get",data:null}).then(([status, result]) => {
+            if(status == 200){
+                setUpcomingEvents(result?.data);
+            }
+        })
+
+    }, []);
+
+    useEffect(() =>{
+         fetchUpcomingEvents();
+
+    }, [fetchUpcomingEvents])
 
     return(
         <Booking>
-            <table>
-                <thead>
-                    <tr>
-                        <td>Hotel</td>
-                        <td>Customer</td>
-                        <td>Type</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
             <div className="no-bookings">
-                  <p>No bookings now</p>
+                  <DataTable data={upcomingEvents} />
             </div>
         </Booking>
     )
@@ -32,9 +42,7 @@ const Booking = styled.div`
     height: auto;    
     .no-bookings{
         background-color: #fff;
-        height:335px;
-        margin-top:15px;
-        width:100%;
+    
         border:1px solid #ccc;
         display: flex;
         justify-content: center;

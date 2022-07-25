@@ -31,15 +31,15 @@ const Header = () => {
                         <i className="search-icon fa fa-search"/>
                     </div>
                     <div className="user-profile">
-                            <Avatar color={'#188754'} round={true} name="Evans Wanyama" size="25" />
-                            <div className="nameuser"><p>Evans ...</p></div> 
+                            <Avatar color={'#188754'} round={true} name="Hanningtone Ommila" size="25" />
+                            <div className="nameuser"><p>Hanningtone ...</p></div> 
                                 <div className="userinfo">
                                     <div className="details-wrapper">
                                         <div>
                                             <img className="imguser imgdetails" src={user} alt="Magniva Logo"/>
                                         </div> 
                                         <div className="user-wrapper">
-                                                <p className="staffname">Evans Wanyama</p>
+                                                <p className="staffname">Hanningtone Ommila</p>
                                                 <p className="userrole">Manager</p>
                                         </div> 
                                     </div>
@@ -50,7 +50,7 @@ const Header = () => {
                                     <hr/>
                                     <p className="loguser">logout</p>
                                 </div>
-                     </div>    
+                     </div>     
                 </div>
            </div>
            <div className="bottom-menu-wrapper">
@@ -199,7 +199,6 @@ const HeaderWrapper = styled.div`
         .user-profile:hover .userinfo{
             display:block;
         }
-    }
     .bottom-menu-wrapper{
         padding:0px 0px;
         display: flex;

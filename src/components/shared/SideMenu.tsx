@@ -9,15 +9,14 @@ const SideMenu = (props: any) => {
 
     return(
         <Wrapper>
-            <ul>
-                <li className={currentRoute === "home"?"active":""}><a href="/home" className={currentRoute === "home"?"active":""}><i className="fa fa-home"></i> Home</a></li>
-                <li className={currentRoute === "categories"?"active":""}><a href="/categories" className={currentRoute === "categories"?"active":""}><i className="fa fa-file-text-o"></i> Categories</a></li>
-                <li className={currentRoute === "markets"?"active":""}><a href="/markets"  className={currentRoute === "markets"?"active":""}><i className="fa fa-map-marker"></i> Markets</a></li>
-                <li className={currentRoute === "hotels"?"active":""}><a href="/hotels"  className={currentRoute === "hotels"?"active":""}><i className="fa fa-bed"></i> Hotels</a></li>
-                <li className={currentRoute === "inventory"?"active":""}><a href="/inventory"  className={currentRoute === "inventory"?"active":""}><i className="fa fa-bed"></i> Hotel Inventory</a></li>
-
-                <li className={currentRoute === "bookings"?"active":""}><a href="/bookings"  className={currentRoute === "bookings"?"active":""}><i className="fa fa-calendar"></i> Bookings <span className="count">6</span></a></li>
-                <li className={currentRoute === "settings"?"active":""}><a href="/settings" className={currentRoute === "settings"?"active":""}><i className="fa fa-gears"></i> Settings</a></li>{/* users, app settings, booking window, ranking algorithm*/}
+            <ul style={{  }}>
+                <li className={currentRoute === "home"?"active":""}><a href="/home" className={currentRoute === "home"?"active":""}><i className="fa fa-home" style={{ "color" : "#283351" }}></i> Home</a></li>
+                <li className={currentRoute === "magniva-events"?"active":""}><a href="/magniva-events" className={currentRoute === "magniva-events"?"active":""}><i className="fa fa-file-text-o" style={{ "color" : "#283351" }}></i> Events</a></li>
+                <li className={currentRoute === "invites"?"active":""}><a href="/invites"  className={currentRoute === "invites"?"active":""}><i className="fa fa-bed" style={{ "color" : "#283351" }}></i> Invites</a></li>
+                <li className={currentRoute === "attendees"?"active":""}><a href="/attendees"  className={currentRoute === "attendees"?"active":""}><i className="fa fa-bed" style={{ "color" : "#283351" }}></i> Attendees</a></li>
+                <li className={currentRoute === "attendance"?"active":""}><a href="/attendance"  className={currentRoute === "attendance"?"active":""}><i className="fa fa-bed" style={{ "color" : "#283351" }}></i> Attendance</a></li>
+                <li className={currentRoute === "theme"?"active":""}><a href="/theme"  className={currentRoute === "theme"?"active":""}><i className="fa fa-leaf" style={{ color:'#283351' }}></i> Themes</a></li>
+                <li className={currentRoute === "settings"?"active":""}><a href="/settings" className={currentRoute === "settings"?"active":""}><i className="fa fa-gears" style={{ "color" : "#283351" }}></i> Settings</a></li>{/* users, app settings, booking window, ranking algorithm*/}
                 {/*<li><a href="/alerts"><i className="fa fa-bell-o"></i> Alerts <span className="count">2</span></a></li>*/}
             </ul>
         </Wrapper>
@@ -29,7 +28,7 @@ const Wrapper = styled.div`
     height: 100%;
     width:110px;
     position:fixed;
-    top:68px;
+    top:70px;
     border-right: 1px solid #ccc;
     z-index: 10;
     ul{
@@ -37,6 +36,7 @@ const Wrapper = styled.div`
         margin:0;
         li{
             text-align:center;
+            list-style:none;
             padding:15px;
             border-top: 1px solid #f1f1f1;
             border-bottom: 1px solid #f1f1f1;
@@ -51,6 +51,7 @@ const Wrapper = styled.div`
             }
             a:hover, li.active{
               color: #fff
+              cursor:pointer;
             }
             span.count{
                 background-color: red;
@@ -60,7 +61,7 @@ const Wrapper = styled.div`
             }
         }
         li:hover, li.active{
-            background-color: #188754;
+            background-color: #931a1d;
             color: #fff;
             a{
                 color: #fff;

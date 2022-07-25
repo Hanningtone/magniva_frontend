@@ -67,7 +67,7 @@ const AmenitiesPage = (user: any) => {
     }, [showModal])
   
     const fetchAmenities = useCallback(() => {
-      let _url = "/room-amenities/get";
+      let _url = "/attendance/get";
   
       makeRequest({ url: _url, method: "get", data: null }).then(
         ([status, result]) => {
@@ -194,7 +194,7 @@ const AmenitiesPage = (user: any) => {
                             <div className="booking-wrapper bg-c">
                             <DataTable data={amenities} 
                             showActions = {{
-                                model: "room-amenities",
+                                model: "attendance",
                                 actions : {
                                     edit: "#update-amenities",
                                     delete: "#generic-delete-modal",

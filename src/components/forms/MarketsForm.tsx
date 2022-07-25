@@ -18,27 +18,21 @@ const MarketsForm = (props: Props) => {
 
     const schema = {
         
-        name : {
-            type: 'textarea',
-            label : 'Market Name ',
-            placeholder : 'Enter Market Name',
+        theme_title : {
+            type: 'text',
+            label : 'Theme Name ',
+            placeholder : 'Enter Theme Name',
             required : true
          },
-         country : {
+         theme_description : {
             type: 'textarea',
-            label : 'Country ',
-            placeholder : 'Enter Country for the Market',
-            required : true
-         },
-         city : {
-            type: 'textarea',
-            label : 'City ',
-            placeholder : 'Enter City for the Market',
+            label : 'Theme Description ',
+            placeholder : 'Enter Theme Descrption',
             required : true
          },
     }
     const [label, setLabel] = useState(submitTitle);
-    const [endpoint, setEndpoint] = useState("/markets/create");
+    const [endpoint, setEndpoint] = useState("/theme/create");
     const [marketsFormSchema, setMarketsFormSchema] = useState(schema);
 
     
@@ -48,7 +42,7 @@ const MarketsForm = (props: Props) => {
         if(selectedRecord){
            
             setLabel('Update Record');
-            setEndpoint('/markets/update/' + selectedRecord.id)
+            setEndpoint('/theme/update/' + selectedRecord.id)
            
             let editSchema : any = Object.assign({}, schema);
             Object.entries(selectedRecord).map(([key, value]) => {

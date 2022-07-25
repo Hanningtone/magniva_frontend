@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext} from 'react';
 import { Context }  from '../context';
+import styled from 'styled-components';
 
 const Th = (props) => {
-   return <th scope="col">{props?.name}</th>
+   return <th scope="col"  style={{ "background-color" : "#931a1d", "color" : "#fff" }}>{props?.name}</th>
 }
 
 const TableHeader = (props) => {
@@ -190,7 +191,8 @@ const DataTable = (props) => {
     }, [props.data]);
 
     return (
-              <table className="table align-items-center table-flush">
+    <div>
+              <table className=" table align-items-center table-flush ">
                 <TableHeader headers={tableHeaders}  showActions={props.showActions && true}/>
                 <tbody>
                 
@@ -213,8 +215,22 @@ const DataTable = (props) => {
 
                 </tbody>
               </table>
+              </div>
 
     );
 }
+const Home = styled.div`
+    width: 100%;
+    height: auto; 
+    .graph-containers{
+        background-color: #fff;
+        height:460px;
+        width:100%;
+    }
+    .thead-light {
+        background-color: #000;
+    }
+    `
 
 export default DataTable;
+

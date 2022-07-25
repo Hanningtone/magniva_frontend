@@ -4,7 +4,7 @@ import { useQuery} from 'react-query';
 import { AdminLayout, 
     SubHeader,
     MagnivaModal,
-    CategoriesForm,
+    MarketsForm,
     TableLoaders
  } from "../components";
 import CategoryService from "../services/CategoryService";
@@ -15,20 +15,21 @@ import { Context } from "../context";
 import { string } from 'prop-types';
 
 
-const CategoriesPage = (user) => {
+const ThemePage = (user: any) => {
+
   const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
-  const [categories, setCategories] = useState([]);
+  const [markets, setMarkets] = useState([]);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState();
   const [classname, setClassname] = useState('success');
   const [page, setPage] = useState(0);
   const [state, dispatch ] =  useContext(Context);
   const[selectedRecord, setSelectedRecord] = useState(null);
-  const[modalTitle, setModalTitle] = useState("Create Category");
-  const[submitTitle, setSubmitTitle] = useState("Create Category");
+  const[modalTitle, setModalTitle] = useState("Create Theme");
+  const[submitTitle, setSubmitTitle] = useState("Create Theme");
 
   useEffect(() => {
-      dispatch({type:"SET", key:'context', payload:'categoriespage'});
+      dispatch({type:"SET", key:'context', payload:'marketspage'});
   }, [])
 
   useEffect(() => {
@@ -36,6 +37,8 @@ const CategoriesPage = (user) => {
       let status = state[state.context].status;
       let message = state[state.context].message;
       let data = state[state.context]?.data || {};
+
+      console.log("state context ", state.context, "has data", state[state.context])
 
       if(status === true){
         setClassname('alert alert-success');     
@@ -45,11 +48,11 @@ const CategoriesPage = (user) => {
       setMessage(message);
     }
 
-  }, [state?.categoriespage])
+  }, [state?.marketspage])
 
 
-  const showModalForm = (show, 
-    title='Create Category', 
+  const showModalForm = (show: boolean, 
+    title='Create new Market', 
     submitTitle='Create Record') =>{
     setModalTitle(title);
     setSubmitTitle(submitTitle);
@@ -63,15 +66,15 @@ const CategoriesPage = (user) => {
 
   }, [showModal])
 
-  const fetchCategories = useCallback(() => {
-    let _url = "/categories/get";
+  const fetchMarkets = useCallback(() => {
+    let _url = "/theme/get";
 
     makeRequest({ url: _url, method: "get", data: null }).then(
       ([status, result]) => {
         if (status !== 200) {
           setError(result?.message || "Error, could not fetch records");
         } else {
-          setCategories(result?.data || []);
+          setMarkets(result?.data || []);
         }
       }
     );
@@ -79,79 +82,79 @@ const CategoriesPage = (user) => {
   }, [state?.page]);
 
 
-
   useEffect(() => {
     
     if(state?.updaterecord){
         let id = state.updaterecord.id;
         let model = state.updaterecord.model;
-       
-      
         let data_url = '/'+model+'/get?id=' + id;
         makeRequest({url:data_url, method:'get', data:null}).then(([status, response])=> {
             if(status !== 200){
                 dispatch({type:'SET', key:'server_error', payload:response.message})
 
             } else {
+                console.log("Get Data ", response);
                 setSelectedRecord(response.data.shift());
             }
-            setModalTitle('Update category Details');
+            setModalTitle('Update Theme Details');
             setShowModal(true);
         })
     }
 },[state?.updaterecord])
 
   useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+    fetchMarkets();
+  }, [fetchMarkets]);
 
-    return (
+    return(
         <AdminLayout showSideMenu={true}>
         <Home>
             <SubHeader
-             pageTitle="Categories"
-             pageSubTitle="8 Magniva hotel subcatgories"
-             btnTxt="Create new category"
+             pageTitle="Theme"
+             pageSubTitle="50 Available Event Themes"
+             btnTxt="Create new Theme"
              onPress = {()=>showModalForm(!showModal)}
              showCreateButton = {true}
             />
             <div className="container-fluid">
                 <div className="row px-3">
-
                     <div className="col-lg-8 bg-c">
-                    <DataTable data={categories} 
+                    <DataTable data={markets} 
                     showActions = {
                       {
-                        model: "categories",
+                        model: "theme",
                         actions: {
-                          edit: "#create-categories",
+                          edit: "#update-markets",
                           delete: "#generic-delete-modal"
                         }
                       }
-                    }/>
+                    }
+
+                    />
                     </div>
+
                     <div className="col-lg-4">
                         <div className="ms-3">
-
-                            <Sidebar>
-                                <div className="field-wrapper">
+                        <Sidebar>
+                               <div className="field-wrapper">
                                     <div>
-                                       <span><strong>Categories Activities</strong></span>
+                                        <span><strong>Theme Statistics</strong></span>
                                     </div>
                                 </div>
                             </Sidebar>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-        <GenericDeleteModal />
-        <CustomModalPane show={showModal}
+            <GenericDeleteModal />
+          <CustomModalPane show={showModal}
            title = {modalTitle}
-           target = "create-category"
+           target = "create-theme"
            hideThisModal={() => setShowModal(false)}
            >
             { message && <div className={classname}>{message}</div> }
-            <CategoriesForm 
+            <MarketsForm 
                 setShowModal={setShowModal}
                 selectedRecord={selectedRecord}
                 submitTitle={submitTitle}
@@ -166,18 +169,19 @@ const Home = styled.div`
     width: 100%;
     height: auto;
     .bg-c{
-        padding:10px ;
+        padding:10px;
     }
     .bg-white{
-        border:1px solid #ccc;
         background-color:#fff;
-        padding:10px ;
+        padding:10px;
+        border:1px solid #ccc;
     }
     .col-lg-8,.col-lg-4{
         padding:0px;
     }
     `
-const Sidebar = styled.div`
+    const Sidebar = styled.div`
+    width:100%;
     width:100%;
     border:1px solid #ccc;
     background-color:#fff;
@@ -210,5 +214,4 @@ const Sidebar = styled.div`
         background-color:#666
     }
 `
-
-export default CategoriesPage;
+export default ThemePage;

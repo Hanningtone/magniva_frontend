@@ -18,31 +18,24 @@ const HotelsForm = (props: Props) => {
 
 
     const schema = {
-        category_id : {
+        event_id : {
             type: 'db_select',
-            label : 'Hotel Category ',
-            model : 'categories',
-            model_display_col : ['name'],
-            placeholder : 'Choose Hotel\'s Category',
+            label : ' Event Title ',
+            model : 'magniva-events',
+            model_display_col : ['event_title'],
+            placeholder : 'Choose Event\'s Title',
          },
-         name : {
+         invite_message : {
             type: 'textarea',
-            label : 'Hotel Name ',
-            placeholder : 'Enter Hotel\'s Name',
-            required : true
-         },
-
-         description : {
-            type: 'textarea',
-            label : 'Hotel Description ',
-            placeholder : 'Enter Hotel Descrption',
+            label : ' Invite Message ',
+            placeholder : 'Write Your invite Message ',
             required : true
          },
 
     }
 
     const [label, setLabel] = useState(submitTitle);
-    const [endpoint, setEndpoint] = useState("/business/create");
+    const [endpoint, setEndpoint] = useState("/invites/create");
     const [hotelsFormSchema, setHotelsFormSchema] = useState(schema);
 
     
@@ -52,7 +45,7 @@ const HotelsForm = (props: Props) => {
         if(selectedRecord){
            
             setLabel('Update Record');
-            setEndpoint('/business/update/' + selectedRecord.id)
+            setEndpoint('/invites/update/' + selectedRecord.id)
            
             let editSchema : any = Object.assign({}, schema);
             Object.entries(selectedRecord).map(([key, value]) => {

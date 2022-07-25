@@ -81,6 +81,9 @@ export default createGlobalStyle`
                 }
             }
         }
+        .fa-home{
+        color: red;
+        }
 
         .section-two {
             right: 0;
@@ -233,7 +236,7 @@ export default createGlobalStyle`
         height:40px;
         width: 40px;
         color: #fff;
-        background-color: #188754;
+        background-color: #931a1d;
         font-size:20px;
         text-align: center;
         padding:5px 0px;

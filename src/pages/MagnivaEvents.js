@@ -4,7 +4,7 @@ import { useQuery} from 'react-query';
 import { AdminLayout, 
     SubHeader,
     MagnivaModal,
-    MarketsForm,
+    MagnivaEventsForm,
     TableLoaders
  } from "../components";
 import CategoryService from "../services/CategoryService";
@@ -15,21 +15,20 @@ import { Context } from "../context";
 import { string } from 'prop-types';
 
 
-const MarketsPage = (user: any) => {
-
+const MagnivaEvents = (user) => {
   const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
-  const [markets, setMarkets] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState();
   const [classname, setClassname] = useState('success');
   const [page, setPage] = useState(0);
   const [state, dispatch ] =  useContext(Context);
   const[selectedRecord, setSelectedRecord] = useState(null);
-  const[modalTitle, setModalTitle] = useState("Create Market");
-  const[submitTitle, setSubmitTitle] = useState("Create Market");
+  const[modalTitle, setModalTitle] = useState("Create Event");
+  const[submitTitle, setSubmitTitle] = useState("Create an Event");
 
   useEffect(() => {
-      dispatch({type:"SET", key:'context', payload:'marketspage'});
+      dispatch({type:"SET", key:'context', payload:'categoriespage'});
   }, [])
 
   useEffect(() => {
@@ -37,8 +36,6 @@ const MarketsPage = (user: any) => {
       let status = state[state.context].status;
       let message = state[state.context].message;
       let data = state[state.context]?.data || {};
-
-      console.log("state context ", state.context, "has data", state[state.context])
 
       if(status === true){
         setClassname('alert alert-success');     
@@ -48,11 +45,11 @@ const MarketsPage = (user: any) => {
       setMessage(message);
     }
 
-  }, [state?.marketspage])
+  }, [state?.categoriespage])
 
 
-  const showModalForm = (show: boolean, 
-    title='Create Markets', 
+  const showModalForm = (show, 
+    title='Create Category', 
     submitTitle='Create Record') =>{
     setModalTitle(title);
     setSubmitTitle(submitTitle);
@@ -66,20 +63,21 @@ const MarketsPage = (user: any) => {
 
   }, [showModal])
 
-  const fetchMarkets = useCallback(() => {
-    let _url = "/markets/get";
+  const fetchCategories = useCallback(() => {
+    let _url = "/magniva-events/get";
 
     makeRequest({ url: _url, method: "get", data: null }).then(
       ([status, result]) => {
         if (status !== 200) {
           setError(result?.message || "Error, could not fetch records");
         } else {
-          setMarkets(result?.data || []);
+          setCategories(result?.data || []);
         }
       }
     );
     
   }, [state?.page]);
+
 
 
   useEffect(() => {
@@ -93,68 +91,65 @@ const MarketsPage = (user: any) => {
                 dispatch({type:'SET', key:'server_error', payload:response.message})
 
             } else {
-                console.log("Get Data ", response);
                 setSelectedRecord(response.data.shift());
             }
-            setModalTitle('Update market Details');
+            setModalTitle('Update Event Details');
             setShowModal(true);
         })
     }
 },[state?.updaterecord])
 
   useEffect(() => {
-    fetchMarkets();
-  }, [fetchMarkets]);
+    fetchCategories();
+  }, [fetchCategories]);
 
-    return(
+    return (
         <AdminLayout showSideMenu={true}>
         <Home>
             <SubHeader
-             pageTitle="Markets"
-             pageSubTitle="200 hotel on Magniva"
-             btnTxt="Create new Market"
+             pageTitle="Events"
+             pageSubTitle="100 Active Events"
+             btnTxt="Create new Event"
              onPress = {()=>showModalForm(!showModal)}
              showCreateButton = {true}
             />
             <div className="container-fluid">
                 <div className="row px-3">
+
                     <div className="col-lg-8 bg-c">
-                    <DataTable data={markets} 
+                    <DataTable data={categories} 
                     showActions = {
                       {
-                        model: "markets",
+                        model: "magniva-events",
                         actions: {
-                          edit: "#update-markets",
+                          edit: "#create-magniva-events",
                           delete: "#generic-delete-modal"
                         }
                       }
-                    }
-
-                    />
+                    }/>
                     </div>
-
                     <div className="col-lg-4">
                         <div className="ms-3">
-                        <Sidebar>
-                               <div className="field-wrapper">
+
+                            <Sidebar>
+                                <div className="field-wrapper">
                                     <div>
-                                        <span><strong>Markets Activities</strong></span>
+                                       <span><strong>Active Events</strong></span>
                                     </div>
                                 </div>
                             </Sidebar>
-                            
-                        </div>
+                        </div>  
                     </div>
                 </div>
             </div>
-            <GenericDeleteModal />
-          <CustomModalPane show={showModal}
+        <GenericDeleteModal />
+        <CustomModalPane show={showModal}
            title = {modalTitle}
-           target = "create-markets"
+           target = "create-magniva-events"
            hideThisModal={() => setShowModal(false)}
            >
             { message && <div className={classname}>{message}</div> }
-            <MarketsForm 
+            <MagnivaEventsForm 
                 setShowModal={setShowModal}
                 selectedRecord={selectedRecord}
                 submitTitle={submitTitle}
@@ -169,19 +164,18 @@ const Home = styled.div`
     width: 100%;
     height: auto;
     .bg-c{
-        padding:10px;
+        padding:10px ;
     }
     .bg-white{
-        background-color:#fff;
-        padding:10px;
         border:1px solid #ccc;
+        background-color:#fff;
+        padding:10px ;
     }
     .col-lg-8,.col-lg-4{
         padding:0px;
     }
     `
-    const Sidebar = styled.div`
-    width:100%;
+const Sidebar = styled.div`
     width:100%;
     border:1px solid #ccc;
     background-color:#fff;
@@ -214,4 +208,5 @@ const Home = styled.div`
         background-color:#666
     }
 `
-export default MarketsPage;
+
+export default MagnivaEvents;

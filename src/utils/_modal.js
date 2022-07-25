@@ -53,7 +53,6 @@ export const GenericDeleteModal = (props) => {
   }
 
   useEffect(() => {
-      console.log("We have reached the useEffect for deleting function");
       if(state?.deleterecord){
          setModel(state?.deleterecord.model);
          setId(state?.deleterecord.id);

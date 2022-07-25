@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import logo from "../../assets/images/logo.jpeg";
+import logo from "../../assets/images/Magniva_redone.jpeg";
 import Avatar from 'react-avatar';
 
 const AdminHeader = (props: any) => {
 
     return(
         <HeaderWrapper>
-             <div className="container-fluid">
+             <div className="container-fluid bigger-row">
                  <div className="row">
                      <div className="col-lg-3">
                         <div className="logo">
@@ -16,7 +16,7 @@ const AdminHeader = (props: any) => {
                      </div>
                      <div className="col-lg-6 d-flex justify-content-center text-center">
                         <div className="input-wrapper">
-                            <i className="search-icon fa fa-search"/>
+                            <i className="search-icon "/>
                                 <input type="text" 
                                     className="form-control px-5" 
                                     id="searchTxt" 
@@ -31,10 +31,10 @@ const AdminHeader = (props: any) => {
                                 <i className="fa fa-question"></i>
                             </div>
                             <div className="user-profile">
-                                <Avatar color={'#188754'} round={true} name="Evans Wanyama" size="35" />
+                                <Avatar color={'#931a1d'} round={true} name="Hanningtone Ommila" size="35" />
                                 <div className="nameuser">
-                                    <span className="user-name">Evans Wanyama</span>
-                                    <span className="company">Magniva Africa</span>
+                                    <span className="user-name">Hanningtone Ommila</span>
+                                    <span className="company">Magniva International</span>
                                 </div> 
                                 <div className="userinfo">
                                     <p><a href="#">Change password</a></p>
@@ -85,23 +85,32 @@ const HeaderWrapper = styled.div`
         }
     }
     .imglogo{
-       width: 150px;
-       height:30px;
+       width: 210px;
+       height:45px;
        margin-top:2px;
     }
     .input-wrapper{
-        position: relative;
+        poHanningtone Ommila</span>
+        <span className="company">Magniva International</span>
+    </div> 
+    <div className="userinfo">
+        <p><a href="#">Change password</a></p>
+        <p><a href="#">Account Details</a></p>
+        <p><a href="#">Help </a></p>sition: relative;
         width:60%;
         align-self: center;
      }
      .search-icon,.setting-icon {
          position: absolute;
-         color: #188754;
+         color: #931a1d;
          font-size:20px;
          top:9px;
      }
      .search-icon{
         left:13px;
+     }
+     .bigger-row{
+
      }
      .setting-icon{
         right:12px;
@@ -194,7 +203,7 @@ const HeaderWrapper = styled.div`
         .help-wrapper i{
             padding:7px;
             font-size:25px;
-            color:#188754;
+            color:#931a1d;
         }
     }
     

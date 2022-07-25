@@ -15,7 +15,7 @@ import { Context } from "../context";
 import HotelMenu from '../components/settings/HotelMenu';
 
 
-const HotelsPage = (user: any) => {
+const InvitesPage = (user: any) => {
 
     const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
     const [hotels, setHotel] = useState([]);
@@ -25,8 +25,8 @@ const HotelsPage = (user: any) => {
     const [page, setPage] = useState(0);
     const [state, dispatch ] =  useContext(Context);
     const[selectedRecord, setSelectedRecord] = useState(null);
-    const[modalTitle, setModalTitle] = useState("Create Hotel");
-    const[submitTitle, setSubmitTitle] = useState("Create Hotel");
+    const[modalTitle, setModalTitle] = useState("Create Invite");
+    const[submitTitle, setSubmitTitle] = useState("Create Invite");
   
     useEffect(() => {
         dispatch({type:"SET", key:'context', payload:'hotelspage'});
@@ -38,7 +38,7 @@ const HotelsPage = (user: any) => {
         let message = state[state.context].message;
         let data = state[state.context]?.data || {};
   
-        console.log("state context ", state.context, "has data", state[state.context])
+        // console.log("state context ", state.context, "has data", state[state.context])
   
         if(status === true){
             setClassname('alert alert-success');     
@@ -52,7 +52,7 @@ const HotelsPage = (user: any) => {
   
   
     const showModalForm = (show: boolean, 
-      title='Create Hotels', 
+      title='Create Invites', 
       submitTitle='Create Record') =>{
       setModalTitle(title);
       setSubmitTitle(submitTitle);
@@ -67,7 +67,7 @@ const HotelsPage = (user: any) => {
     }, [showModal])
   
     const fetchHotels = useCallback(() => {
-      let _url = "/business/get";
+      let _url = "/invites/get";
   
       makeRequest({ url: _url, method: "get", data: null }).then(
         ([status, result]) => {
@@ -96,7 +96,7 @@ const HotelsPage = (user: any) => {
                   console.log("Get Data ", response);
                   setSelectedRecord(response.data.shift());
               }
-              setModalTitle('Update Hotel Details');
+              setModalTitle('Update Invite Details');
               setShowModal(true);
           })
       }
@@ -112,8 +112,8 @@ const HotelsPage = (user: any) => {
         <Home>
             <SubHeader
              pageTitle="Hotels"
-             pageSubTitle="200 hotel on Magnivas"
-             btnTxt = "Create new hotel"
+             pageSubTitle="200 events on Magniva"
+             btnTxt = "Create new Invite"
              onPress = {()=>showModalForm(!showModal)}
              showCreateButton = {true}
             />
@@ -130,8 +130,8 @@ const HotelsPage = (user: any) => {
                                             <i className="fa fa-bed"></i>
                                         </div>
                                         <div className="stat-top-wrapper">
-                                                <p className="stat-title">Total Hotels</p>
-                                                <p className="stat-total">300</p>
+                                                <p className="stat-title">Total Invites</p>
+                                                <p className="stat-total">200</p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
                                             <p><span className="text-success fw-bold">+5% </span>increase since last month</p>
@@ -144,7 +144,7 @@ const HotelsPage = (user: any) => {
                                         <i className="fa fa-bed"></i>
                                         </div>
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title">Rooms Available</p>
+                                            <p className="stat-title">Active Invites</p>
                                             <p className="stat-total"></p>
                                     </div>
                                     <div className="stat-bottom-wrapper">
@@ -158,8 +158,8 @@ const HotelsPage = (user: any) => {
                                         <i className="fa fa-users"></i>
                                     </div>
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title">Rooms Booked</p>
-                                            <p className="stat-total">300</p>
+                                            <p className="stat-title"> Confirmed Invites</p>
+                                            <p className="stat-total">150</p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
                                         <p><span className="text-success fw-bold">+5% </span>increase since last month</p>
@@ -172,7 +172,7 @@ const HotelsPage = (user: any) => {
                                         <i className="fa fa-calendar"></i>
                                     </div> 
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title">Fully Booked Hotels</p>
+                                            <p className="stat-title">Filled Invites</p>
                                             <p className="stat-total"></p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
@@ -180,7 +180,6 @@ const HotelsPage = (user: any) => {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
@@ -189,7 +188,7 @@ const HotelsPage = (user: any) => {
                     </div>
                     <div className="row px-3" >
                     <div className="col-lg-12">
-                        <HotelMenu/>
+                        {/*<HotelMenu/>*/}
                         <div className="booking-details bg-c">
                             <div className="booking-wrapper bg-c">
                             <DataTable data={hotels} 
@@ -210,7 +209,7 @@ const HotelsPage = (user: any) => {
                 </div>
             </div>
             <GenericDeleteModal />
-            <CustomModalPane show={showModal}
+          <CustomModalPane show={showModal}
            title = {modalTitle}
            target = "create-hotels"
            hideThisModal={() => setShowModal(false)}
@@ -268,7 +267,7 @@ const Home = styled.div`
     }
   }
   .booking-container {
-    margin: 20px 0px 100px 0px;
+    margin: 20px 0px 100px 0px; 
   }
 `;
-export default HotelsPage;
+export default InvitesPage;
