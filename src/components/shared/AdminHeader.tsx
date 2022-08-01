@@ -186,7 +186,6 @@ const HeaderWrapper = styled.div`
         .user-profile:hover .userinfo{
             display:block;
         }
-    }
     .right-container{
         display:flex;
         flex-direction: flow;

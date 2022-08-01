@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
 import { LoadForm } from '../../utils/form';
 import { Context } from "../../context";
-import makeRequest from  '../../utils/fetch-request';
+import { useNavigate } from "react-router-dom";
 
 const MagnivaEventsForm = (props) => {
-    const [state, dispatch] = useContext(Context);
-    const {setShowModal, selectedRecord, submitTitle } = props;
+    const [state, ] = useContext(Context);
+    const {selectedRecord, submitTitle } = props;
 
     const schema = {
         event_title : {
@@ -41,6 +40,13 @@ const MagnivaEventsForm = (props) => {
             placeholder : 'Enter location of the Event',
             required : false
          },
+         venue : {
+            type: 'text',
+            label : 'Event Venue',
+            placeholder : 'Enter Venue of the Event',
+            required : false
+         },
+
          start_date : {
             type: 'datetime',
             label : 'Start Date',
@@ -60,9 +66,20 @@ const MagnivaEventsForm = (props) => {
             required : true
          },
     }
+    const navigate = useNavigate();
+
     const [label, setLabel] = useState(submitTitle);
     const [endpoint, setEndpoint] = useState("/magniva-events/create");
-    const [categoriesFormSchema, setCategoriesFormSchema] = useState(schema);
+    const [eventsFormSchema, setEventsFormSchema] = useState(schema);
+
+    useEffect(() => {
+        if(state?.homepage?.status ===  true) {
+            console.log("Redirect from here dude", state.homepage);
+            let id = state.homepage.data.data.id;
+            let url = '/magniva-events/detail/'+id;
+            navigate(url);
+        }
+    }, [state?.homepage])
 
     
 
@@ -81,7 +98,7 @@ const MagnivaEventsForm = (props) => {
                 } else {
                 }
             })
-            setCategoriesFormSchema(editSchema);
+            setEventsFormSchema(editSchema);
         } else {
             setLabel(submitTitle);
         }
@@ -90,7 +107,7 @@ const MagnivaEventsForm = (props) => {
 
     return(
         <FormWrapper>
-            { LoadForm(categoriesFormSchema, label, endpoint) }
+            { LoadForm(eventsFormSchema, label, endpoint) }
         </FormWrapper>
     )
 }

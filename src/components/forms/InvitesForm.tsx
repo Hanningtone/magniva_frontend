@@ -12,47 +12,31 @@ interface Props {
     submitTitle : any
 }
 
-const PerksForm = (props: Props) => {
+const InvitesForm = (props: Props) => {
     const [state, dispatch] = useContext(Context);
     const {setShowModal, selectedRecord, submitTitle } = props;
 
-    
-    const schema = {
-        room_type_id : {
-            type: 'db_select',
-            label : ' Room Type ',
-            model : 'room-types',
-            model_display_col : ['title'],
-            placeholder : 'Choose Room Type',
-         },
 
-         name : {
-            type: 'text',
-            label : ' Perk\'s Name',
-            placeholder : 'Enter the Name of Perk',
-            required : true
+    const schema = {
+        event_id : {
+            type: 'db_select',
+            label : ' Event Title ',
+            model : 'magniva-events',
+            model_display_col : ['event_title'],
+            placeholder : 'Choose Event\'s Title',
          },
-         description : {
+         invite_message : {
             type: 'textarea',
-            label : ' Perks Description ',
-            placeholder : 'Describe Your Perk',
-         },
-         start_date : {
-            type: 'date',
-            label : ' Start Day',
-            placeholder : 'Enter a Date',
-         },
-         end_date : {
-            type: 'date',
-            label : ' End Date ',
-            placeholder : 'Enter a Promotion',
+            label : ' Invite Message ',
+            placeholder : 'Write Your invite Message ',
+            required : true
          },
 
     }
 
     const [label, setLabel] = useState(submitTitle);
-    const [endpoint, setEndpoint] = useState("/room-perks/create");
-    const [houseRulesFormsSchema, setHouseRulesSchema] = useState(schema);
+    const [endpoint, setEndpoint] = useState("/invites/create");
+    const [inviteFormSchema, setInviteFormSchema] = useState(schema);
 
     
 
@@ -61,7 +45,7 @@ const PerksForm = (props: Props) => {
         if(selectedRecord){
            
             setLabel('Update Record');
-            setEndpoint('/room-perks/update/' + selectedRecord.id)
+            setEndpoint('/invites/update/' + selectedRecord.id)
            
             let editSchema : any = Object.assign({}, schema);
             Object.entries(selectedRecord).map(([key, value]) => {
@@ -72,7 +56,7 @@ const PerksForm = (props: Props) => {
                     console.log('Edit form schema missing key', key);
                 }
             })
-            setHouseRulesSchema(editSchema);
+            setInviteFormSchema(editSchema);
         } else {
             setLabel(submitTitle);
         }
@@ -81,11 +65,11 @@ const PerksForm = (props: Props) => {
 
     return(
         <FormWrapper>
-            { LoadForm(houseRulesFormsSchema, label, endpoint) }
+            { LoadForm(inviteFormSchema, label, endpoint) }
         </FormWrapper>
     )
 }
 
 const FormWrapper = styled.div`
 `
-export default PerksForm;
+export default InvitesForm;

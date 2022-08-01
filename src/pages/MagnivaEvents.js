@@ -7,17 +7,15 @@ import { AdminLayout,
     MagnivaEventsForm,
     TableLoaders
  } from "../components";
-import CategoryService from "../services/CategoryService";
 import makeRequest from "../utils/fetch-request";
 import DataTable from "../utils/table"
 import CustomModalPane, { GenericDeleteModal } from '../utils/_modal';
 import { Context } from "../context";
-import { string } from 'prop-types';
 
 
 const MagnivaEvents = (user) => {
   const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
-  const [categories, setCategories] = useState([]);
+  const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState();
   const [classname, setClassname] = useState('success');
@@ -28,7 +26,7 @@ const MagnivaEvents = (user) => {
   const[submitTitle, setSubmitTitle] = useState("Create an Event");
 
   useEffect(() => {
-      dispatch({type:"SET", key:'context', payload:'categoriespage'});
+      dispatch({type:"SET", key:'context', payload:'eventspage'});
   }, [])
 
   useEffect(() => {
@@ -45,11 +43,11 @@ const MagnivaEvents = (user) => {
       setMessage(message);
     }
 
-  }, [state?.categoriespage])
+  }, [state?.eventspage])
 
 
   const showModalForm = (show, 
-    title='Create Category', 
+    title='Create Event', 
     submitTitle='Create Record') =>{
     setModalTitle(title);
     setSubmitTitle(submitTitle);
@@ -63,7 +61,7 @@ const MagnivaEvents = (user) => {
 
   }, [showModal])
 
-  const fetchCategories = useCallback(() => {
+  const fetchEvents = useCallback(() => {
     let _url = "/magniva-events/get";
 
     makeRequest({ url: _url, method: "get", data: null }).then(
@@ -71,7 +69,7 @@ const MagnivaEvents = (user) => {
         if (status !== 200) {
           setError(result?.message || "Error, could not fetch records");
         } else {
-          setCategories(result?.data || []);
+          setEvents(result?.data || []);
         }
       }
     );
@@ -100,8 +98,8 @@ const MagnivaEvents = (user) => {
 },[state?.updaterecord])
 
   useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+    fetchEvents();
+  }, [fetchEvents]);
 
     return (
         <AdminLayout showSideMenu={true}>
@@ -117,15 +115,15 @@ const MagnivaEvents = (user) => {
                 <div className="row px-3">
 
                     <div className="col-lg-8 bg-c">
-                    <DataTable data={categories} 
-                    showActions = {
-                      {
+                    <DataTable data={events} 
+                      showActions = {{
                         model: "magniva-events",
-                        actions: {
-                          edit: "#create-magniva-events",
-                          delete: "#generic-delete-modal"
-                        }
-                      }
+                         actions : {
+                                      edit: "#update-business-branches",
+                                      delete: "#generic-delete-modal",
+                                      relations: "theme,attendance"
+                                    }
+                                  }
                     }/>
                     </div>
                     <div className="col-lg-4">

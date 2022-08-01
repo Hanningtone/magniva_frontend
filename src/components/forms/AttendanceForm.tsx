@@ -12,51 +12,50 @@ interface Props {
     submitTitle : any
 }
 
-const HotelBranchForm = (props: Props) => {
+const AttendanceForm = (props: Props) => {
     const [state, dispatch] = useContext(Context);
     const {setShowModal, selectedRecord, submitTitle } = props;
 
 
     const schema = {
-        business_id : {
+      
+         event_id : {
             type: 'db_select',
-            label : 'Hotel Main Branch ',
-            model : 'business',
-            model_display_col : ['name'],
-            placeholder : 'Choose Hotel\'s Category',
+            label : ' Event ',
+            model : 'magniva-events',
+            model_display_col : ['event_title'],
+            placeholder : 'Select Event',
          },
-        branch_name : {
-            type: 'textarea',
-            label : 'Branch Name',
-            placeholder : 'Enter Branch\'s Name',
-            required : true
+         invite_id : {
+            type: 'db_select',
+            label : 'Invites ',
+            model : 'invites',
+            model_display_col : ['invite_message'],
+            placeholder : 'Select Invite Title ',
          },
-         location : {
-            type: 'textarea',
-            label : 'Hotel Location ',
-            placeholder : 'Enter Hotel Descrption',
-            required : true
+         attendee_id : {
+            type: 'db_select',
+            label : 'Name ',
+            model : 'attendees',
+            model_display_col : ['first_name'],
+            placeholder : 'Choose Attendee Name ',
          },
-
-         description : {
-            type: 'textarea',
-            label : 'Hotel Description ',
-            placeholder : 'Enter Hotel Descrption',
-            required : true
-         },
+        
 
     }
 
     const [label, setLabel] = useState(submitTitle);
-    const [endpoint, setEndpoint] = useState("/business-branches/create");
-    const [hotelBranchFormSchema, setHotelBranchFormSchema] = useState(schema);
+    const [endpoint, setEndpoint] = useState("/attendance/create");
+    const [attendanceSchema, setAttendanceSchema] = useState(schema);
+
+    
 
     useEffect(() => {
         
         if(selectedRecord){
            
             setLabel('Update Record');
-            setEndpoint('/business-branches/update/' + selectedRecord.id)
+            setEndpoint('/attendance/update/' + selectedRecord.id)
            
             let editSchema : any = Object.assign({}, schema);
             Object.entries(selectedRecord).map(([key, value]) => {
@@ -67,7 +66,7 @@ const HotelBranchForm = (props: Props) => {
                     console.log('Edit form schema missing key', key);
                 }
             })
-            setHotelBranchFormSchema(editSchema);
+            setAttendanceSchema(editSchema);
         } else {
             setLabel(submitTitle);
         }
@@ -76,11 +75,11 @@ const HotelBranchForm = (props: Props) => {
 
     return(
         <FormWrapper>
-            { LoadForm(hotelBranchFormSchema, label, endpoint) }
+            { LoadForm(attendanceSchema, label, endpoint) }
         </FormWrapper>
     )
 }
 
 const FormWrapper = styled.div`
 `
-export default HotelBranchForm;
+export default AttendanceForm;

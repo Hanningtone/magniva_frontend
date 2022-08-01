@@ -4,21 +4,19 @@ import { useQuery} from 'react-query';
 import { AdminLayout, 
     SubHeader,
     MagnivaModal,
-    MarketsForm,
     TableLoaders
  } from "../components";
-import CategoryService from "../services/CategoryService";
 import makeRequest from "../utils/fetch-request";
 import DataTable from "../utils/table"
 import CustomModalPane, { GenericDeleteModal } from '../utils/_modal';
 import { Context } from "../context";
-import { string } from 'prop-types';
+import ThemeForm from '../components/forms/ThemeForm';
 
 
 const ThemePage = (user: any) => {
 
   const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
-  const [markets, setMarkets] = useState([]);
+  const [theme, setTheme] = useState([]);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState();
   const [classname, setClassname] = useState('success');
@@ -29,7 +27,7 @@ const ThemePage = (user: any) => {
   const[submitTitle, setSubmitTitle] = useState("Create Theme");
 
   useEffect(() => {
-      dispatch({type:"SET", key:'context', payload:'marketspage'});
+      dispatch({type:"SET", key:'context', payload:'themespage'});
   }, [])
 
   useEffect(() => {
@@ -48,11 +46,11 @@ const ThemePage = (user: any) => {
       setMessage(message);
     }
 
-  }, [state?.marketspage])
+  }, [state?.themespage])
 
 
   const showModalForm = (show: boolean, 
-    title='Create new Market', 
+    title='Create new Theme', 
     submitTitle='Create Record') =>{
     setModalTitle(title);
     setSubmitTitle(submitTitle);
@@ -66,7 +64,7 @@ const ThemePage = (user: any) => {
 
   }, [showModal])
 
-  const fetchMarkets = useCallback(() => {
+  const fetchThemes = useCallback(() => {
     let _url = "/theme/get";
 
     makeRequest({ url: _url, method: "get", data: null }).then(
@@ -74,7 +72,7 @@ const ThemePage = (user: any) => {
         if (status !== 200) {
           setError(result?.message || "Error, could not fetch records");
         } else {
-          setMarkets(result?.data || []);
+          setTheme(result?.data || []);
         }
       }
     );
@@ -103,8 +101,8 @@ const ThemePage = (user: any) => {
 },[state?.updaterecord])
 
   useEffect(() => {
-    fetchMarkets();
-  }, [fetchMarkets]);
+    fetchThemes();
+  }, [fetchThemes]);
 
     return(
         <AdminLayout showSideMenu={true}>
@@ -119,12 +117,12 @@ const ThemePage = (user: any) => {
             <div className="container-fluid">
                 <div className="row px-3">
                     <div className="col-lg-8 bg-c">
-                    <DataTable data={markets} 
+                    <DataTable data={theme} 
                     showActions = {
                       {
                         model: "theme",
                         actions: {
-                          edit: "#update-markets",
+                          edit: "#update-theme",
                           delete: "#generic-delete-modal"
                         }
                       }
@@ -154,7 +152,7 @@ const ThemePage = (user: any) => {
            hideThisModal={() => setShowModal(false)}
            >
             { message && <div className={classname}>{message}</div> }
-            <MarketsForm 
+            <ThemeForm 
                 setShowModal={setShowModal}
                 selectedRecord={selectedRecord}
                 submitTitle={submitTitle}

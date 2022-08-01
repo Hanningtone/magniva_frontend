@@ -1,122 +1,53 @@
 import { useEffect, useCallback, useState, useContext  } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from "styled-components";
-import { useQuery} from 'react-query';
 import { AdminLayout, 
     SubHeader,
-    MagnivaModal,
-    HouseRulesForm,
     TableLoaders
- } from "../components";
-import CategoryService from "../services/CategoryService";
-import makeRequest from "../utils/fetch-request";
-import DataTable from "../utils/table"
-import CustomModalPane, { GenericDeleteModal } from '../utils/_modal';
-import { Context } from "../context";
-import HotelMenu from '../components/settings/HotelMenu';
+ } from "../../components";
+import CategoryService from "../../services/CategoryService";
+import makeRequest from "../../utils/fetch-request";
+import DataTable from "../../utils/table"
+import { Context } from "../../context";
+import HotelMenu from '../../components/settings/HotelMenu';
 
 
-const HouseRulesPage = (user: any) => {
+const AmenitiesDetailsPage = (user: any) => {
 
-    const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
-    const [house_rules, setHouseRules] = useState([]);
-    const [error, setError] = useState(null);
-    const [message, setMessage] = useState();
     const [classname, setClassname] = useState('success');
     const [page, setPage] = useState(0);
     const [state, dispatch ] =  useContext(Context);
-    const[selectedRecord, setSelectedRecord] = useState(null);
-    const[modalTitle, setModalTitle] = useState("Create House Rule");
-    const[submitTitle, setSubmitTitle] = useState("Create Rule");
+    const [error, setError] = useState();
+    const [amenitiesDetails, setAmenitiesDetails] = useState();
+    const { id, relations } = useParams();
   
-    useEffect(() => {
-        dispatch({type:"SET", key:'context', payload:'houserules'});
-    }, [])
-  
-    useEffect(() => {
-      if(state?.context){
-        let status = state[state.context].status;
-        let message = state[state.context].message;
-        let data = state[state.context]?.data || {};
-  
-        console.log("state context ", state.context, "has data", state[state.context])
-  
-        if(status === true){
-            setClassname('alert alert-success');     
-          } else {
-            setClassname('alert alert-danger');
-          }
-        setMessage(message);
-      }
-  
-    }, [state?.houserules])
-  
-  
-    const showModalForm = (show: boolean, 
-      title='Create House Rule', 
-      submitTitle='Create Record') =>{
-      setModalTitle(title);
-      setSubmitTitle(submitTitle);
-      setShowModal(show);
-    }
-  
-    useEffect(()=> {
-      if(!showModal) {
-        setSelectedRecord(null);
-      }
-  
-    }, [showModal])
-  
-    const fetchHouseRules = useCallback(() => {
-      let _url = "/house-rules/get";
+    const fetchAmenitiesDetails= useCallback(() => {
+
+      let _url = "/room-amenities/detail/"+id;
+      relations && (_url += '?relations='+relations);
   
       makeRequest({ url: _url, method: "get", data: null }).then(
         ([status, result]) => {
           if (status !== 200) {
             setError(result?.message || "Error, could not fetch records");
           } else {
-            setHouseRules(result?.data || []);
+            setAmenitiesDetails(result?.data || []);
           }
         }
       );
       
-    }, [state?.page]);
+    }, []);
   
   
     useEffect(() => {
-      
-      if(state?.updaterecord){
-          let id = state.updaterecord.id;
-          let model = state.updaterecord.model;
-          let data_url = '/'+model+'/get?id=' + id;
-          makeRequest({url:data_url, method:'get', data:null}).then(([status, response])=> {
-              if(status !== 200){
-                  dispatch({type:'SET', key:'server_error', payload:response.message})
-  
-              } else {
-                  console.log("Get Data ", response);
-                  setSelectedRecord(response.data.shift());
-              }
-              setModalTitle('Update House Rules');
-              setShowModal(true);
-          })
-      }
-  },[state?.updaterecord])
-  
-    useEffect(() => {
-    fetchHouseRules();
-    }, [fetchHouseRules]);
+        fetchAmenitiesDetails();
+    }, [fetchAmenitiesDetails]);
   
 
     return(
         <AdminLayout showSideMenu={true}>
         <Home>
-            <SubHeader
-             pageTitle="House Rules "
-             pageSubTitle="200 hotel on Magnivas"
-             btnTxt = "Create a House Rule"
-             onPress = {()=>showModalForm(!showModal)}
-             showCreateButton = {true}
-            />
+     
             <div className="container-fluid">
 
                 <div className="row px-3">
@@ -145,7 +76,7 @@ const HouseRulesPage = (user: any) => {
                                         </div>
                                         <div className="stat-top-wrapper">
                                             <p className="stat-title">Rooms Available</p>
-                                            <p className="stat-total">3000</p>
+                                            <p className="stat-total"></p>
                                     </div>
                                     <div className="stat-bottom-wrapper">
                                         <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
@@ -173,7 +104,7 @@ const HouseRulesPage = (user: any) => {
                                     </div> 
                                         <div className="stat-top-wrapper">
                                             <p className="stat-title">Fully Booked Hotels</p>
-                                            <p className="stat-total">300</p>
+                                            <p className="stat-total"></p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
                                         <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
@@ -192,36 +123,16 @@ const HouseRulesPage = (user: any) => {
                         <HotelMenu/>
                         <div className="booking-details bg-c">
                             <div className="booking-wrapper bg-c">
-                            <DataTable data={house_rules} 
-                            showActions = {{
-                                model: "house-rules",
-                                actions : {
-                                    edit: "#update-house-types",
-                                    delete: "#generic-delete-modal",
-                                }
-
-                            }
-
-                            } />
+                            <DataTable data={amenitiesDetails} 
+                                showActions = {false} detailedTable={false}
+                              />
                         </div>
                         <p className="text-end mt-3 pagination-text">Showing page 1 of 1</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <GenericDeleteModal />
-            <CustomModalPane show={showModal}
-           title = {modalTitle}
-           target = "create-house-rules"
-           hideThisModal={() => setShowModal(false)}
-           >
-            { message && <div className={classname}>{message}</div> }
-            <HouseRulesForm 
-                setShowModal={setShowModal}
-                selectedRecord={selectedRecord}
-                submitTitle={submitTitle}
-                />
-        </CustomModalPane>
+         
         </Home>
         </AdminLayout>
     )
@@ -271,4 +182,4 @@ const Home = styled.div`
     margin: 20px 0px 100px 0px;
   }
 `;
-export default HouseRulesPage;
+export default AmenitiesDetailsPage;

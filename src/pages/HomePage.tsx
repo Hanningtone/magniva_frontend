@@ -42,7 +42,7 @@ const HomePage = (user: any) => {
 
   
     useEffect(() => {
-        dispatch({type:"SET", key:'context', payload:'categoriespage'});
+        dispatch({type:"SET", key:'context', payload:'homepage'});
     }, [])
   
     useEffect(() => {
@@ -59,7 +59,7 @@ const HomePage = (user: any) => {
         setMessage(message);
       }
   
-    }, [state?.categoriespage])
+    }, [state?.homepage])
   
   
     const showModalForm = (show:boolean, 
@@ -70,15 +70,11 @@ const HomePage = (user: any) => {
       setShowModal(show);
     }
 
-    function handleClick(){
-        console.log("Nothing to do");
-    }
-
 
 const [invites, setInvites] = useState([]);
 const [upcomingEvents, setUpcomingEvents]  = useState([]);
 const fetchUpcomingEvents = useCallback(() => {
-    let endpoint = "/magniva-events/get?limit=20"
+    let endpoint = "/magniva-events/get?limit=4"
     makeRequest({url:endpoint, method:"get",data:null}).then(([status, result]) => {
         if(status == 200){
             setUpcomingEvents(result?.data);
@@ -104,7 +100,7 @@ useEffect(() =>{
                                <i className="fa fa-bed"></i>
                            </div>
                            <div className="stat-top-wrapper">
-                                <p className="stat-title">Total Events</p>
+                                <p className="stat-title"> Total Events</p>
                                 <p className="stat-total">{upcomingEvents.length}</p>
                            </div>
                            <div className="stat-bottom-wrapper">

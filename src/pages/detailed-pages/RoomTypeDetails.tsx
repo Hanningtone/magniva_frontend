@@ -1,73 +1,30 @@
 import { useEffect, useCallback, useState, useContext  } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from "styled-components";
-import { useQuery} from 'react-query';
 import { AdminLayout, 
     SubHeader,
-    MagnivaModal,
-    RoomTypesForm,
     TableLoaders
- } from "../components";
-import CategoryService from "../services/CategoryService";
-import makeRequest from "../utils/fetch-request";
-import DataTable from "../utils/table"
-import CustomModalPane, { GenericDeleteModal } from '../utils/_modal';
-import { Context } from "../context";
-import HotelMenu from '../components/settings/HotelMenu';
+ } from "../../components";
+import CategoryService from "../../services/CategoryService";
+import makeRequest from "../../utils/fetch-request";
+import DataTable from "../../utils/table"
+import { Context } from "../../context";
+import HotelMenu from '../../components/settings/HotelMenu';
 
 
-const RoomTypesPage = (user: any) => {
+const RoomTypeDetailsPage = (user: any) => {
 
-    const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
-    const [room_types, setRoomTypes] = useState([]);
-    const [error, setError] = useState(null);
-    const [message, setMessage] = useState();
     const [classname, setClassname] = useState('success');
     const [page, setPage] = useState(0);
     const [state, dispatch ] =  useContext(Context);
-    const[selectedRecord, setSelectedRecord] = useState(null);
-    const[modalTitle, setModalTitle] = useState("Create Room Types");
-    const[submitTitle, setSubmitTitle] = useState("Create a Room");
+    const [error, setError] = useState();
+    const [roomTypes, setRoomTypes] = useState();
+    const { id, relations } = useParams();
   
-    useEffect(() => {
-        dispatch({type:"SET", key:'context', payload:'[roomtypespage]'});
-    }, [])
-  
-    useEffect(() => {
-      if(state?.context){
-        let status = state[state.context].status;
-        let message = state[state.context].message;
-        let data = state[state.context]?.data || {};
-  
-        console.log("state context ", state.context, "has data", state[state.context])
-  
-        if(status === true){
-            setClassname('alert alert-success');     
-          } else {
-            setClassname('alert alert-danger');
-          }
-        setMessage(message);
-      }
-  
-    }, [state?.roomtypespage])
-  
-  
-    const showModalForm = (show: boolean, 
-      title='Create a Room Type', 
-      submitTitle='Create Record') =>{
-      setModalTitle(title);
-      setSubmitTitle(submitTitle);
-      setShowModal(show);
-    }
-  
-    useEffect(()=> {
-      if(!showModal) {
-        setSelectedRecord(null);
-      }
-  
-    }, [showModal])
-  
-    const fetchRoomTypes = useCallback(() => {
-      let _url = "/room-types/get";
+    const fetchRoomTypes= useCallback(() => {
+
+      let _url = "/room-types/detail/"+id;
+      relations && (_url += '?relations='+relations);
   
       makeRequest({ url: _url, method: "get", data: null }).then(
         ([status, result]) => {
@@ -79,44 +36,18 @@ const RoomTypesPage = (user: any) => {
         }
       );
       
-    }, [state?.page]);
+    }, []);
   
   
     useEffect(() => {
-      
-      if(state?.updaterecord){
-          let id = state.updaterecord.id;
-          let model = state.updaterecord.model;
-          let data_url = '/'+model+'/get?id=' + id;
-          makeRequest({url:data_url, method:'get', data:null}).then(([status, response])=> {
-              if(status !== 200){
-                  dispatch({type:'SET', key:'server_error', payload:response.message})
-  
-              } else {
-                  console.log("Get Data ", response);
-                  setSelectedRecord(response.data.shift());
-              }
-              setModalTitle('Update Room Details');
-              setShowModal(true);
-          })
-      }
-  },[state?.updaterecord])
-  
-    useEffect(() => {
-    fetchRoomTypes();
+        fetchRoomTypes();
     }, [fetchRoomTypes]);
   
 
     return(
         <AdminLayout showSideMenu={true}>
         <Home>
-            <SubHeader
-             pageTitle="Room Types "
-             pageSubTitle="200 hotel on Magnivas"
-             btnTxt = "Create a Room Type"
-             onPress = {()=>showModalForm(!showModal)}
-             showCreateButton = {true}
-            />
+     
             <div className="container-fluid">
 
                 <div className="row px-3">
@@ -145,7 +76,7 @@ const RoomTypesPage = (user: any) => {
                                         </div>
                                         <div className="stat-top-wrapper">
                                             <p className="stat-title">Rooms Available</p>
-                                            <p className="stat-total">3000</p>
+                                            <p className="stat-total"></p>
                                     </div>
                                     <div className="stat-bottom-wrapper">
                                         <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
@@ -173,7 +104,7 @@ const RoomTypesPage = (user: any) => {
                                     </div> 
                                         <div className="stat-top-wrapper">
                                             <p className="stat-title">Fully Booked Hotels</p>
-                                            <p className="stat-total">300</p>
+                                            <p className="stat-total"></p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
                                         <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
@@ -192,36 +123,16 @@ const RoomTypesPage = (user: any) => {
                         <HotelMenu/>
                         <div className="booking-details bg-c">
                             <div className="booking-wrapper bg-c">
-                            <DataTable data={room_types} 
-                            showActions = {{
-                                model: "room-types",
-                                actions : {
-                                    edit: "#update-room-types",
-                                    delete: "#generic-delete-modal",
-                                }
-
-                            }
-
-                            } />
+                            <DataTable data={roomTypes } 
+                                showActions = {false} detailedTable={false}
+                              />
                         </div>
                         <p className="text-end mt-3 pagination-text">Showing page 1 of 1</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <GenericDeleteModal />
-            <CustomModalPane show={showModal}
-           title = {modalTitle}
-           target = "create-room-types"
-           hideThisModal={() => setShowModal(false)}
-           >
-            { message && <div className={classname}>{message}</div> }
-            <RoomTypesForm 
-                setShowModal={setShowModal}
-                selectedRecord={selectedRecord}
-                submitTitle={submitTitle}
-                />
-        </CustomModalPane>
+         
         </Home>
         </AdminLayout>
     )
@@ -271,4 +182,4 @@ const Home = styled.div`
     margin: 20px 0px 100px 0px;
   }
 `;
-export default RoomTypesPage;
+export default RoomTypeDetailsPage;

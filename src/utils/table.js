@@ -51,6 +51,11 @@ const TdActions = (props) => {
             </a>)
         }
         {
+                actions.relations && (<a href={`/${model}/detail/${recordId}/${actions.relations}`} className="text-success m-1" data-placement="top" data-toggle="tooltip" title="View" data-original-title="View">
+                <i className="fa fa-eye"></i>
+             </a>)
+         }
+        {
            actions.edit && (<a href="#" onClick={(event) => onEditFunction(event, model, recordId)}  className="text-primary" >
                 <i className="fa fa-edit"></i>
              </a>)             
@@ -88,7 +93,7 @@ const Tr = (props) => {
 
    const noneEditableMarkup = () => {
       return (
-          <tr>
+          <tr onClick={console.log("Some dope Shit")}>
             { 
                 Object.entries(props?.row_data||[]).map(([key, value]) => {
                     if(!endsWith(key, "_id") && !(key === 'id')){
@@ -207,7 +212,7 @@ const DataTable = (props) => {
                                 });
                                 return [headerRow, ...newRows];
                             } else {
-                                return  <Tr row_data={row} key={index} showActions={props.showActions} recordId={row.id}/>;
+                                return  <Tr row_data={row} key={index} showActions={props.showActions} recordId={row.id}  />;
                             }
                         })
                     ) : ( <tr><td>No records found </td></tr> )

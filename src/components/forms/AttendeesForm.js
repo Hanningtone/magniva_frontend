@@ -50,7 +50,7 @@ const AttendeesForm = (props) => {
     console.log("Schema", schema)
     const [label, setLabel] = useState(submitTitle);
     const [endpoint, setEndpoint] = useState("/attendees/create");
-    const [categoriesFormSchema, setCategoriesFormSchema] = useState(schema);
+    const [attendeesFormSchema, setAttendeeSchema] = useState(schema);
 
     
 
@@ -69,21 +69,15 @@ const AttendeesForm = (props) => {
                 } else {
                 }
             })
-            setCategoriesFormSchema(editSchema);
+            setAttendeeSchema(editSchema);
         } else {
             setLabel(submitTitle);
         }
     },[selectedRecord])
 
-    useEffect(() => {
-
-        //setCategoriesFormSchema(schema);
-    }, [])
-
-
     return(
         <FormWrapper>
-            {LoadForm(categoriesFormSchema, label, endpoint) }
+            {LoadForm(attendeesFormSchema, label, endpoint) }
         </FormWrapper>
     )
 }

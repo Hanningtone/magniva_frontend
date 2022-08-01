@@ -7,17 +7,15 @@ import { AdminLayout,
     TableLoaders
  } from "../components";
 import AttendeesForm from '../components/forms/AttendeesForm';
-import CategoryService from "../services/CategoryService";
 import makeRequest from "../utils/fetch-request";
 import DataTable from "../utils/table"
 import CustomModalPane, { GenericDeleteModal } from '../utils/_modal';
 import { Context } from "../context";
-import { string } from 'prop-types';
 
 
 const AttendeesPage = (user) => {
   const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
-  const [categories, setCategories] = useState([]);
+  const [attendees, setAttendees] = useState([]);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState();
   const [classname, setClassname] = useState('success');
@@ -28,7 +26,7 @@ const AttendeesPage = (user) => {
   const[submitTitle, setSubmitTitle] = useState("Create an Attendee");
 
   useEffect(() => {
-      dispatch({type:"SET", key:'context', payload:'categoriespage'});
+      dispatch({type:"SET", key:'context', payload:'attendeespage'});
   }, [])
 
   useEffect(() => {
@@ -45,7 +43,7 @@ const AttendeesPage = (user) => {
       setMessage(message);
     }
 
-  }, [state?.categoriespage])
+  }, [state?.attendeespage])
 
 
   const showModalForm = (show, 
@@ -63,7 +61,7 @@ const AttendeesPage = (user) => {
 
   }, [showModal])
 
-  const fetchCategories = useCallback(() => {
+  const fetchAttendees = useCallback(() => {
     let _url = "/attendees/get";
 
     makeRequest({ url: _url, method: "get", data: null }).then(
@@ -71,7 +69,7 @@ const AttendeesPage = (user) => {
         if (status !== 200) {
           setError(result?.message || "Error, could not fetch records");
         } else {
-          setCategories(result?.data || []);
+          setAttendees(result?.data || []);
         }
       }
     );
@@ -99,8 +97,8 @@ const AttendeesPage = (user) => {
 },[state?.updaterecord])
 
   useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+    fetchAttendees();
+  }, [fetchAttendees]);
 
     return (
         <AdminLayout showSideMenu={true}>
@@ -116,7 +114,7 @@ const AttendeesPage = (user) => {
                 <div className="row px-3">
 
                     <div className="col-lg-8 bg-c">
-                    <DataTable data={categories} 
+                    <DataTable data={attendees} 
                     showActions = {
                       {
                         model: "magniva-events",

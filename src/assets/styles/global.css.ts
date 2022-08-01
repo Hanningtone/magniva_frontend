@@ -302,4 +302,9 @@ export default createGlobalStyle`
         font-size: 10px;
         margin-top: 5px;
     }
+    .btn-primary {
+        background-color : #b7d4fd;
+        color : #000;
+        border-color : #FFEBEB;
+    }
      `;

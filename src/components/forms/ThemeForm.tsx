@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -7,46 +6,34 @@ import { Context } from "../../context";
 import makeRequest from  '../../utils/fetch-request';
 
 interface Props {
-    setShowModal: any
-    selectedRecord : any
+    setShowModal: any,
+    selectedRecord : any,
     submitTitle : any
+
 }
 
-const AmenitiesForm = (props: Props) => {
+const InvitesForm = (props: Props) => {
     const [state, dispatch] = useContext(Context);
     const {setShowModal, selectedRecord, submitTitle } = props;
 
-
     const schema = {
-      
-         event_id : {
-            type: 'db_select',
-            label : ' Event ',
-            model : 'magniva-events',
-            model_display_col : ['event_title'],
-            placeholder : 'Select Event',
-         },
-         invite_id : {
-            type: 'db_select',
-            label : 'Invites ',
-            model : 'invites',
-            model_display_col : ['invite_message'],
-            placeholder : 'Select Invite Title ',
-         },
-         attendee_id : {
-            type: 'db_select',
-            label : 'Name ',
-            model : 'attendees',
-            model_display_col : ['first_name'],
-            placeholder : 'Choose Attendee Name ',
-         },
         
-
+        theme_title : {
+            type: 'text',
+            label : 'Theme Name ',
+            placeholder : 'Enter Theme Name',
+            required : true
+         },
+         theme_description : {
+            type: 'textarea',
+            label : 'Theme Description ',
+            placeholder : 'Enter Theme Descrption',
+            required : true
+         },
     }
-
     const [label, setLabel] = useState(submitTitle);
-    const [endpoint, setEndpoint] = useState("/attendance/create");
-    const [amenitiesSchema, setAmenitiesSchema] = useState(schema);
+    const [endpoint, setEndpoint] = useState("/theme/create");
+    const [eventsFormSchema, setEventsFormSchema] = useState(schema);
 
     
 
@@ -55,7 +42,7 @@ const AmenitiesForm = (props: Props) => {
         if(selectedRecord){
            
             setLabel('Update Record');
-            setEndpoint('/attendance/update/' + selectedRecord.id)
+            setEndpoint('/theme/update/' + selectedRecord.id)
            
             let editSchema : any = Object.assign({}, schema);
             Object.entries(selectedRecord).map(([key, value]) => {
@@ -66,7 +53,7 @@ const AmenitiesForm = (props: Props) => {
                     console.log('Edit form schema missing key', key);
                 }
             })
-            setAmenitiesSchema(editSchema);
+            setEventsFormSchema(editSchema);
         } else {
             setLabel(submitTitle);
         }
@@ -75,11 +62,12 @@ const AmenitiesForm = (props: Props) => {
 
     return(
         <FormWrapper>
-            { LoadForm(amenitiesSchema, label, endpoint) }
+            { LoadForm(eventsFormSchema, label, endpoint) }
         </FormWrapper>
     )
 }
 
+
 const FormWrapper = styled.div`
 `
-export default AmenitiesForm;
+export default InvitesForm;

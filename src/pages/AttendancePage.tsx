@@ -4,30 +4,32 @@ import { useQuery} from 'react-query';
 import { AdminLayout, 
     SubHeader,
     MagnivaModal,
-    HotelForm,
+    AttendanceForm,
     TableLoaders
  } from "../components";
+import CategoryService from "../services/CategoryService";
 import makeRequest from "../utils/fetch-request";
 import DataTable from "../utils/table"
 import CustomModalPane, { GenericDeleteModal } from '../utils/_modal';
 import { Context } from "../context";
+import HotelMenu from '../components/settings/HotelMenu';
 
 
-const InvitesPage = (user: any) => {
+const AttendancePage = (user: any) => {
 
     const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
-    const [invites, setInvites] = useState([]);
+    const [attendance, setAttendance] = useState([]);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState();
     const [classname, setClassname] = useState('success');
     const [page, setPage] = useState(0);
     const [state, dispatch ] =  useContext(Context);
     const[selectedRecord, setSelectedRecord] = useState(null);
-    const[modalTitle, setModalTitle] = useState("Create Invite");
-    const[submitTitle, setSubmitTitle] = useState("Create Invite");
+    const[modalTitle, setModalTitle] = useState("Create Room");
+    const[submitTitle, setSubmitTitle] = useState("Create Room");
   
     useEffect(() => {
-        dispatch({type:"SET", key:'context', payload:'invitespage'});
+        dispatch({type:"SET", key:'context', payload:'attendance'});
     }, [])
   
     useEffect(() => {
@@ -35,8 +37,6 @@ const InvitesPage = (user: any) => {
         let status = state[state.context].status;
         let message = state[state.context].message;
         let data = state[state.context]?.data || {};
-  
-        // console.log("state context ", state.context, "has data", state[state.context])
   
         if(status === true){
             setClassname('alert alert-success');     
@@ -46,11 +46,11 @@ const InvitesPage = (user: any) => {
         setMessage(message);
       }
   
-    }, [state?.invitespage])
+    }, [state?.attendance])
   
   
     const showModalForm = (show: boolean, 
-      title='Create Invites', 
+      title='Create Amenity', 
       submitTitle='Create Record') =>{
       setModalTitle(title);
       setSubmitTitle(submitTitle);
@@ -64,15 +64,15 @@ const InvitesPage = (user: any) => {
   
     }, [showModal])
   
-    const fetchInvites = useCallback(() => {
-      let _url = "/invites/get";
+    const fetchAttendance = useCallback(() => {
+      let _url = "/attendance/get";
   
       makeRequest({ url: _url, method: "get", data: null }).then(
         ([status, result]) => {
           if (status !== 200) {
             setError(result?.message || "Error, could not fetch records");
           } else {
-            setInvites(result?.data || []);
+            setAttendance(result?.data || []);
           }
         }
       );
@@ -94,24 +94,24 @@ const InvitesPage = (user: any) => {
                   console.log("Get Data ", response);
                   setSelectedRecord(response.data.shift());
               }
-              setModalTitle('Update Invite Details');
+              setModalTitle('Update Room Details');
               setShowModal(true);
           })
       }
   },[state?.updaterecord])
   
     useEffect(() => {
-      fetchInvites();
-    }, [fetchInvites]);
+    fetchAttendance();
+    }, [fetchAttendance]);
   
 
     return(
         <AdminLayout showSideMenu={true}>
         <Home>
             <SubHeader
-             pageTitle="Invites"
-             pageSubTitle="200 events on Magniva"
-             btnTxt = "Create new Invite"
+             pageTitle="Attendance "
+             pageSubTitle="Magniva Events"
+             btnTxt = "Create new Event"
              onPress = {()=>showModalForm(!showModal)}
              showCreateButton = {true}
             />
@@ -128,8 +128,8 @@ const InvitesPage = (user: any) => {
                                             <i className="fa fa-bed"></i>
                                         </div>
                                         <div className="stat-top-wrapper">
-                                                <p className="stat-title">Total Invites</p>
-                                                <p className="stat-total">200</p>
+                                                <p className="stat-title">Total Hotels</p>
+                                                <p className="stat-total">300</p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
                                             <p><span className="text-success fw-bold">+5% </span>increase since last month</p>
@@ -142,8 +142,8 @@ const InvitesPage = (user: any) => {
                                         <i className="fa fa-bed"></i>
                                         </div>
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title">Active Invites</p>
-                                            <p className="stat-total"></p>
+                                            <p className="stat-title">Rooms Available</p>
+                                            <p className="stat-total">3000</p>
                                     </div>
                                     <div className="stat-bottom-wrapper">
                                         <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
@@ -156,8 +156,8 @@ const InvitesPage = (user: any) => {
                                         <i className="fa fa-users"></i>
                                     </div>
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title"> Confirmed Invites</p>
-                                            <p className="stat-total">150</p>
+                                            <p className="stat-title">Rooms Booked</p>
+                                            <p className="stat-total">300</p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
                                         <p><span className="text-success fw-bold">+5% </span>increase since last month</p>
@@ -170,14 +170,15 @@ const InvitesPage = (user: any) => {
                                         <i className="fa fa-calendar"></i>
                                     </div> 
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title">Filled Invites</p>
-                                            <p className="stat-total"></p>
+                                            <p className="stat-title">Fully Booked Hotels</p>
+                                            <p className="stat-total">300</p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
                                         <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>
@@ -186,14 +187,14 @@ const InvitesPage = (user: any) => {
                     </div>
                     <div className="row px-3" >
                     <div className="col-lg-12">
-                        {/*<HotelMenu/>*/}
+                        <HotelMenu/>
                         <div className="booking-details bg-c">
                             <div className="booking-wrapper bg-c">
-                            <DataTable data={invites} 
+                            <DataTable data={attendance} 
                             showActions = {{
-                                model: "business",
+                                model: "attendance",
                                 actions : {
-                                    edit: "#update-business-branches",
+                                    edit: "#update-attendance",
                                     delete: "#generic-delete-modal",
                                 }
 
@@ -207,13 +208,13 @@ const InvitesPage = (user: any) => {
                 </div>
             </div>
             <GenericDeleteModal />
-          <CustomModalPane show={showModal}
+            <CustomModalPane show={showModal}
            title = {modalTitle}
-           target = "create-invite"
+           target = "create-attendance"
            hideThisModal={() => setShowModal(false)}
            >
             { message && <div className={classname}>{message}</div> }
-            <HotelForm 
+            <AttendanceForm 
                 setShowModal={setShowModal}
                 selectedRecord={selectedRecord}
                 submitTitle={submitTitle}
@@ -265,7 +266,7 @@ const Home = styled.div`
     }
   }
   .booking-container {
-    margin: 20px 0px 100px 0px; 
+    margin: 20px 0px 100px 0px;
   }
 `;
-export default InvitesPage;
+export default AttendancePage;
