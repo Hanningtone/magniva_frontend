@@ -59,8 +59,6 @@ const HotelBranchDetailsPage = (user: any) => {
     setShowModal(show);
   }
 
-
-  
     const fetchHotelBranchDetails= useCallback(() => {
 
       let _url = "/magniva-events/detail/"+id;

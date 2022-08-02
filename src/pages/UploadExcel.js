@@ -1,17 +1,19 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, {useState, useContext } from 'react';
 import styled from "styled-components";
 import {
     AdminLayout,
-    SubHeader,
-    TableLoaders
 } from "../components";
 import * as XLSX from 'xlsx';
 import DataTable from '../utils/table';
+import { Context } from "../context";
+import makeRequest from "../utils/fetch-request";
 
 
-const UploadExcel = (user) => {
+const UploadExcel = (props) => {
+    const {eventId, user} = props;
 
     const [items, setItems] = useState([]);
+    const [ state, dispatch ] =  useContext(Context);
 
     const readExcel = (file) => {
 
@@ -26,7 +28,6 @@ const UploadExcel = (user) => {
                 const wsname = wb.SheetNames[0];
 
                 const ws = wb.Sheets[wsname];
-
                 const data = XLSX.utils.sheet_to_json(ws);
 
                 resolve(data)
@@ -41,11 +42,41 @@ const UploadExcel = (user) => {
         });
 
         promise.then((d) => {
-            setItems(d);
+            let payload = {event_id:eventId, data:d}
+            setItems(payload);
             console.log(d);
             console.log("Logging the Data", items)
         });
     }
+
+    const onSubmit = ({ setSubmitting,  resetForm, setStatus, setErrors}) => {
+
+        let endpoint = "/attendees/create";
+        makeRequest({url:endpoint, method:"post", data:items}).then(([status, result]) => {
+            if(status > 299){
+                if(status < 500) { 
+                    const field_errors = {};
+                    Object.entries(result?.data).forEach( ([key, value]) =>  {
+                        field_errors[key] = value[0];
+                    });
+                    setErrors(field_errors);
+                    dispatch({type:"SET", key:state?.context, payload:{"status":false, "message":result.message}});
+                } else {
+                    dispatch({type:"SET", key:state?.context, payload:{"status":false, "message":"Internal server error"}});
+                }
+            } else {
+                console.log("Dispatching state", state?.context,{"status":true, message:result.message, data:result} )
+                dispatch({type:"SET", key:state?.context, payload:{"status":true, message:result.message, data:result}});
+                dispatch({type:"SET", key:"page", payload:state?.page === 0 ? 1: 0 });
+            }   
+            setSubmitting(false);
+        });
+    }
+
+
+
+
+
 
     return (
         <AdminLayout showSideMenu={true}>
@@ -99,6 +130,7 @@ const UploadExcel = (user) => {
                         </tbody>
                     </table> */}
                 </div>
+                <button onClick={onSubmit}> Submit </button>
             </Home>
         </AdminLayout>
     )
