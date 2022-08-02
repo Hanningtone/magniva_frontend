@@ -10,16 +10,17 @@ import DataTable from "../../utils/table"
 import { Context } from "../../context";
 import CustomModalPane from '../../utils/_modal';
 import { MagnivaEventsForm } from '../../components';
+import { AttendantsUploadForm } from '../../components';
 
 
-const HotelBranchDetailsPage = (user: any) => {
+const EventDetailsPage = (user: any) => {
     const [start_time, setStartTime] = useState();
     const [end_time, setEndTime] = useState();
     const [classname, setClassname] = useState('success');
     const [page, setPage] = useState(0);
     const [state, dispatch ] =  useContext(Context);
     const [error, setError] = useState();
-    const [hotelBranchDetails, setHotelBranchDetails] = useState();
+    const [hotelBranchDetails, setEventDetails] = useState();
     const { id, relations } = useParams();
     const [title, setTitle] = useState("Magniva");
     const [venue, setVenue] = useState(" Magniva");
@@ -28,6 +29,7 @@ const HotelBranchDetailsPage = (user: any) => {
     const[submitTitle, setSubmitTitle] = useState("Create an Attendee");
     const [message, setMessage] = useState();
     const [showModal, setShowModal] = useState(false);
+    const [showFileUploadModal, setShowFileUploadModal] = useState(false);
 
 
     useEffect(() => {
@@ -50,6 +52,13 @@ const HotelBranchDetailsPage = (user: any) => {
 
   }, [state?.homepage])
 
+  const showModalFileUploadForm = (show:boolean, 
+    title='Upload Attendants', 
+    submitTitle='Upload File') =>{
+    setModalTitle(title);
+    setSubmitTitle(submitTitle);
+    setShowFileUploadModal(show);
+  }
 
   const showModalForm = (show:boolean, 
     title='Create Invite', 
@@ -59,10 +68,10 @@ const HotelBranchDetailsPage = (user: any) => {
     setShowModal(show);
   }
 
-    const fetchHotelBranchDetails= useCallback(() => {
+    const fetchEventDetails= useCallback(() => {
 
       let _url = "/magniva-events/detail/"+id;
-      relations && (_url += '?relations='+relations);
+      relations && (_url += '?with='+relations);
   
       makeRequest({ url: _url, method: "get", data: null }).then(
         ([status, result]) => {
@@ -75,7 +84,7 @@ const HotelBranchDetailsPage = (user: any) => {
             setStartTime(result?.data.start_date);
             setEndTime(result?.data.end_date)
 
-            setHotelBranchDetails(result?.data || []);
+            setEventDetails(result?.data || []);
           }
         }
       );
@@ -84,8 +93,8 @@ const HotelBranchDetailsPage = (user: any) => {
   
   
     useEffect(() => {
-      fetchHotelBranchDetails();
-    }, [fetchHotelBranchDetails]);
+      fetchEventDetails();
+    }, [fetchEventDetails]);
   
 
     return(
@@ -94,78 +103,27 @@ const HotelBranchDetailsPage = (user: any) => {
      
             <div className="container-fluid">
 
-            <div className="row px-3">
-                    <div className="col-lg-12 p-6">
-                        <div className="stats-wrapper">
-                            <div className="row">
-                                
-                                <div className="col-lg-2 title-c">
-                                <div className="stat-top-wrapper">
-
-                                  <p className="stat-title">Title of the Event: </p>
-                                  <p className="stat-total">{title}</p>
-
-                                </div>
-                                </div>
-                                <div className="col-lg-2 title-c">
-                                  <div className="stat-top-wrapper">
-
-                                      <p className="stat-title">Location : </p>
-                                      <p className="stat-total">{location}</p>
-
-                                  </div>
-                                    
-                                </div>
-                                <div className="col-lg-2 title-c">
-                                  <div className="stat-top-wrapper">
-
-                                      <p className="stat-title">Venue : </p>
-                                      <p className="stat-total">{venue}</p>
-
-                                  </div>
-                                    
-                                </div>
-
-
-                                <div className="col-lg-2 title-c">
-                                  <div className="stat-top-wrapper">
-
-                                      <p className="stat-title">Start Day/Time: </p>
-                                      <p className="stat-total">{start_time}</p>
-
-                                  </div>  
-                                </div>
-
-                                <div className="col-lg-2 title-c">
-                                  <div className="stat-top-wrapper">
-
-                                      <p className="stat-title">Stop Day/Time: </p>
-                                      <p className="stat-total">{end_time}</p>
-
-                                  </div>  
-                                </div>
-
-                              <div className="col-lg-2">
-                                  <div>
-                                    <Button>
-                                      <ul>
-                                          <a href="#" className='link-text' id = 'create-event' onClick = {()=>showModalForm(!showModal)}> Invite People </a>
-
-                                      </ul>
-                                    </Button>
-                                </div>          
-                                </div>
-                            </div>
-                        </div>
-                
-                    </div>
-                    </div>
-                    <div className="row px-3" >
+            <div className="row">
+              <div className="col-lg-2">
+                    <Button>
+                          <a href="#" className='link-text' id = 'create-event' onClick = {()=>showModalForm(!showModal)}> Invite Attendants</a>
+                    </Button>
+               </div>
+              <div className="col-lg-2">
+                    <Button>
+                          <a href="#" className='link-text' id = 'upload-attendants' onClick = {()=>showModalFileUploadForm(!showFileUploadModal)}> Upload Attendants </a>
+                    </Button>
+               </div>
+            </div>
+            <div className="page-title">
+                <h3>Event Details </h3>
+            </div>
+                <div className="row px-3" >
                     <div className="col-lg-12">
                         <div className="booking-details bg-c">
                             <div className="booking-wrapper bg-c">
                             <DataTable data={hotelBranchDetails} 
-                                showActions = {false} detailedTable={false}
+                                showActions = {false} detailedTable={true}
                               />
                         </div>
                         <p className="text-end mt-3 pagination-text">Showing page 1 of 1</p>
@@ -185,6 +143,17 @@ const HotelBranchDetailsPage = (user: any) => {
                 />
         </CustomModalPane>
          
+          <CustomModalPane show={showFileUploadModal}
+           title = {modalTitle}
+           target = "upload-attendees"
+           hideThisModal={() => setShowFileUploadModal(false)}
+           >
+            { message && <div className={classname}>{message}</div> }
+            <AttendantsUploadForm 
+                setShowModal={setShowFileUploadModal}
+                submitTitle={submitTitle}
+                />
+        </CustomModalPane>
         </Home>
         </AdminLayout>
     )
@@ -194,9 +163,9 @@ const Button = styled.div`
 background-color : #b7d4fd;
 border:1px solid #D3C5C5;
 font-size: 14px;
-padding: 10px 5px 5px 5px;
+padding: 10px 5px 10px 10px;
 border-radius: 5px;
-margin: 45px;
+margin: 45px 0px 0px;
 cursor: pointer;
 display : flex;
 width : %;
@@ -204,11 +173,6 @@ width : %;
 &:disabled {
 
 };
-// &:hover{
-//     background-color:#4b5561;
-//     cursor:pointer;
-//     border:1px solid #4b5561;
-// }
 .link-text {
     float: right;
     background-color:#;
@@ -325,4 +289,4 @@ const Home = styled.div`
 
   }
 `;
-export default HotelBranchDetailsPage;
+export default EventDetailsPage;

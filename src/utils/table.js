@@ -204,7 +204,11 @@ const DataTable = (props) => {
                  {
                     rowData ? (
                         rowData.map((row, index) => {
-                            if(row?.value && typeof(row.value) == "object"){
+                            if(Array.isArray(row.value) ){
+                                let headerRow = <Tr row_data={{value:row.key}} key={index} recordId={row.id} colspan={2} heading={true}/>
+                                let table = <DataTable data={row.value} detailedTable={false} />
+                                return [headerRow, table];
+                            } else if(row?.value && typeof(row.value) == "object"){
                                 let _data = dictValuesToList(row.value);
                                 let headerRow = <Tr row_data={{value:row.key}} key={index} recordId={row.id} colspan={2} heading={true}/>
                                 let newRows =  _data.map((innerRow, innerIndex) => {

@@ -121,7 +121,7 @@ const MagnivaEvents = (user) => {
                          actions : {
                                       edit: "#update-business-branches",
                                       delete: "#generic-delete-modal",
-                                      relations: "theme,attendance"
+                                      relations: "attendance@event_id"
                                     }
                                   }
                     }/>

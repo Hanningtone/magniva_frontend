@@ -28,6 +28,7 @@ const LoginForm = () => {
                 dispatch({type:'SET', key:'user', payload:response.data});
                 navigate('/home')
             } else {             
+                console.log("Response error", response, status);
                 setError(response.message)
             }                                                                   
         })                                                                      

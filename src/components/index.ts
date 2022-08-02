@@ -22,4 +22,5 @@ export {default as AttendanceForm} from './forms/AttendanceForm';
 export {default as HouseRulesForm} from './forms/HouseRulesForm';
 export {default as RoomTypesForm } from './forms/RoomTypesForm';
 export {default as InvitesForm } from './forms/InvitesForm'; 
+export {default as AttendantsUploadForm } from './forms/AttendantsUploadForm'; 
 

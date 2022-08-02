@@ -106,29 +106,6 @@ const UploadExcel = (props) => {
 
                     </div>
                     <DataTable data ={items}/>
-                    {/* <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Second Name</th>
-                                <th scope="col">Phone Number</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Car</th>
-                                <th scope="col">Age</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                            items.map((d) => (
-                                <tr key={d.Name}>
-                                    <th>{d.Name}</th>
-                                    <th>{d.Car}</th>
-                                    <th>{d.Age}</th>
-
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table> */}
                 </div>
                 <button onClick={onSubmit}> Submit </button>
             </Home>

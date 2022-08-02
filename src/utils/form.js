@@ -91,6 +91,38 @@ export const HiddenField = (props)  => {
     );
 };
 
+export const FileUploadField = (props)  => {
+    const { name,  label, value, onChangeFunction } = props;
+    const [field, , { setValue }] = useField(props);
+     const { setFieldValue } = useFormikContext(); 
+    const [customData, setCustomData] = useState()
+   
+    const setFileFiledData = (data) =>{
+       setFieldValue("data", data);
+    }
+
+    const callOnChangeFunction = (e) => {
+       setValue( e.target.files[0]);
+       onChangeFunction(e, setFileFiledData);
+    }
+
+    let inputProps={
+        id: name,
+        name: name,
+        className:"form-control",
+        onChange: e => callOnChangeFunction(e),
+    }
+
+    return (
+        <div className="form-group" >
+            {label && <label htmlFor={name} className="form-control-label">{label}</label>}
+            <input
+                type="file"
+                { ...inputProps }
+            />
+        </div>
+    );
+};
 export const TextAreaField = (props)  => {
     const { name, label, placeholder, value, ...rest } = props;
     return (
@@ -325,6 +357,10 @@ export const getFormElement = (elementName, elementSchema) => {
         placeholder:elementSchema.placeholder || ""
     }
 
+    if(elementSchema?.onChangeFunction){
+       props.onChangeFunction = elementSchema.onChangeFunction;
+    }
+
     //optional props
     if(elementSchema.options && ['select', 'db_select', 'radio'].includes(elementSchema.type) ){
         props.options = elementSchema.options;
@@ -381,6 +417,9 @@ export const getFormElement = (elementName, elementSchema) => {
     }
     if (elementSchema.type === "password") {
         return <PasswordField  {...props} />
+    }
+    if (elementSchema.type === "fileupload") {
+        return <FileUploadField  {...props} />
     }
 };
 
