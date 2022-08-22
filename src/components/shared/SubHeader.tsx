@@ -14,7 +14,7 @@ const SubHeader = (props: Props) => {
         <Wrapper>
             <div className="page-title">
                 <h3>{props.pageTitle}</h3>
-                <p>{props.pageSubTitle}</p>
+                <p>{props.pageSubTitle} Events </p>
             </div>
             {props.showCreateButton &&
                 <div className="page-buttons mt-5">
@@ -26,7 +26,7 @@ const SubHeader = (props: Props) => {
 }
 
 const Wrapper = styled.div`
-    padding: 0.5rem 1rem;
+    padding: 0rem 1rem;
     height:100px;
     display: flex;
     justify-content: space-between;

@@ -12,13 +12,13 @@ const AttendeesForm = (props) => {
     const schema = {
          first_name : {
             type: 'text',
-            label : 'Attendee Name',
+            label : 'First Name',
             placeholder : 'Enter First Name',
             required : true,
          },
          second_name : {
             type: 'text',
-            label : 'Attendee Name',
+            label : 'Surname Name',
             placeholder : 'Enter Second Name',
             required : true,
          },
@@ -34,7 +34,7 @@ const AttendeesForm = (props) => {
             placeholder : 'Enter Email Address',
             required : false,
          },
-         designation : {
+         job_position : {
             type: 'text',
             label : 'Designation',
             placeholder : 'e.g Assistant Manager',

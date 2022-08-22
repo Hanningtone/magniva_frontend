@@ -1,7 +1,7 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
+
 
 export default createGlobalStyle`
-
   body {
     overflow-x: hidden !important ; /*preventing overflow*/
     margin: 0;
@@ -236,7 +236,7 @@ export default createGlobalStyle`
         height:40px;
         width: 40px;
         color: #fff;
-        background-color: #931a1d;
+        background-color: $color_brown_shade;
         font-size:20px;
         text-align: center;
         padding:5px 0px;
@@ -257,7 +257,6 @@ export default createGlobalStyle`
     }
     table thead tr td{
         padding:5px 10px;
-        border:1px solid #cccc;
         font-weight: bold;
         vertical-align: top;
     }
@@ -267,7 +266,6 @@ export default createGlobalStyle`
     }
     table tbody tr td{
         padding:5px 10px;
-        border:1px solid #f1f1f1;
         vertical-align: top;
         font-size: 13px;
         background-color: #fff;
@@ -307,4 +305,43 @@ export default createGlobalStyle`
         color : #000;
         border-color : #FFEBEB;
     }
+    .events_nav {
+        margin : 5px 10px;
+        background-color : #b7d4fd;
+        width: max-content;
+        display: block;
+        padding: 0.2rem 1.7rem;
+        display: flex;
+        gap: 8rem;
+        border-radius: 0.3rem;
+        marging:10px;
+    }
+    .events_nav a {
+        background: transparent;
+        padding: 0.8rem;
+        border-radius: 10%;
+        display: flex;
+        font-size: 0.9rem;
+        color : #000;
+        text-decoration : none;
+    }
+    .events_nav a:hover {
+        color : white;
+        font-weight bold;
+    
+    }
+    .events_nav a:active {
+        background: var(--color-bg);
+        color: var(--color-white)
+    }
+    .top-info {
+        height : 120px;
+        margin-top : 9px;
+        padding-top : 1.5rem;
+        
+    }
+    .clock-div{
+        border-right: 1px solid #ccc;
+    }
+
      `;

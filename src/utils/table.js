@@ -3,7 +3,7 @@ import { Context }  from '../context';
 import styled from 'styled-components';
 
 const Th = (props) => {
-   return <th scope="col"  style={{ "background-color" : "#931a1d", "color" : "#fff" }}>{props?.name}</th>
+   return <th scope="col"  style={{ "background-color" : "#931a1d99", "color" : "#fff" }}>{props?.name}</th>
 }
 
 const TableHeader = (props) => {
@@ -235,9 +235,6 @@ const Home = styled.div`
         background-color: #fff;
         height:460px;
         width:100%;
-    }
-    .thead-light {
-        background-color: #000;
     }
     `
 

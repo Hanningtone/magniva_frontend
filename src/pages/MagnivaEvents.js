@@ -24,6 +24,14 @@ const MagnivaEvents = (user) => {
   const[selectedRecord, setSelectedRecord] = useState(null);
   const[modalTitle, setModalTitle] = useState("Create Event");
   const[submitTitle, setSubmitTitle] = useState("Create an Event");
+  const [searchTerm, setSearchTerm] = useState('');
+ 
+  const filteredEvents = events.filter( (events) => events.event_title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+  const handleChange = (event) =>{
+
+    setSearchTerm(event.target.value)
+  }
 
   useEffect(() => {
       dispatch({type:"SET", key:'context', payload:'eventspage'});
@@ -69,12 +77,15 @@ const MagnivaEvents = (user) => {
         if (status !== 200) {
           setError(result?.message || "Error, could not fetch records");
         } else {
-          setEvents(result?.data || []);
+          setEvents(result?.data || []);          
+   
         }
       }
     );
     
-  }, [state?.page]);
+  }, [state?.eventspage],);
+  
+
 
 
 
@@ -100,13 +111,25 @@ const MagnivaEvents = (user) => {
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
+ 
 
     return (
         <AdminLayout showSideMenu={true}>
         <Home>
+        <div className="search-wrapper"> 
+                    <div className="input-wrapper">
+                        <input type="text" 
+                            className="form-control py-2" 
+                            id="searchTxt" 
+                            placeholder="Search Events"
+                            onChange = { handleChange }
+                        />
+                        <i className="search-icon fa fa-search"/>
+                    </div>    
+                </div>
             <SubHeader
-             pageTitle="Events"
-             pageSubTitle="100 Active Events"
+             pageTitle="All Events"
+             pageSubTitle= { events.length}
              btnTxt="Create new Event"
              onPress = {()=>showModalForm(!showModal)}
              showCreateButton = {true}
@@ -115,7 +138,7 @@ const MagnivaEvents = (user) => {
                 <div className="row px-3">
 
                     <div className="col-lg-8 bg-c">
-                    <DataTable data={events} 
+                    <DataTable data={filteredEvents} 
                       showActions = {{
                         model: "magniva-events",
                          actions : {
@@ -172,6 +195,33 @@ const Home = styled.div`
     .col-lg-8,.col-lg-4{
         padding:0px;
     }
+    .search-wrapper{
+      height: 0px;
+      width: 600px;
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      padding: 20px 0px 0px 0px;
+      input{
+          width:100%;
+          font-size: 14px;
+          color:#188754;
+      }
+      input::placeholder { 
+        color: #188754;
+      }
+      .input-wrapper{
+         position: relative;
+         width:65%;
+      }
+      .search-icon{
+          position: absolute;
+          color: #188754;
+          font-size:20px;
+          right:12px;
+          top:8px;
+      }
+  }
     `
 const Sidebar = styled.div`
     width:100%;

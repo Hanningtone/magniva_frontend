@@ -142,11 +142,11 @@ const AttendancePage = (user: any) => {
                                         <i className="fa fa-bed"></i>
                                         </div>
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title">Rooms Available</p>
-                                            <p className="stat-total">3000</p>
+                                            <p className="stat-title">People Attending</p>
+                                            <p className="stat-total">100</p>
                                     </div>
                                     <div className="stat-bottom-wrapper">
-                                        <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
+                                        <p><span className="text-danger fw-bold">-16% </span>decrease since last month</p>
                                     </div>
                                     </div>
                                 </div>
@@ -156,11 +156,11 @@ const AttendancePage = (user: any) => {
                                         <i className="fa fa-users"></i>
                                     </div>
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title">Rooms Booked</p>
-                                            <p className="stat-total">300</p>
+                                            <p className="stat-title"> Key Events</p>
+                                            <p className="stat-total">3</p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
-                                        <p><span className="text-success fw-bold">+5% </span>increase since last month</p>
+                                        <p><span className="text-success fw-bold">+10% </span>increase since last month</p>
                                         </div>
                                     </div>
                                 </div>
@@ -170,8 +170,8 @@ const AttendancePage = (user: any) => {
                                         <i className="fa fa-calendar"></i>
                                     </div> 
                                         <div className="stat-top-wrapper">
-                                            <p className="stat-title">Fully Booked Hotels</p>
-                                            <p className="stat-total">300</p>
+                                            <p className="stat-title">100% Turn Out</p>
+                                            <p className="stat-total">30 Events</p>
                                         </div>
                                         <div className="stat-bottom-wrapper">
                                         <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
@@ -187,7 +187,6 @@ const AttendancePage = (user: any) => {
                     </div>
                     <div className="row px-3" >
                     <div className="col-lg-12">
-                        <HotelMenu/>
                         <div className="booking-details bg-c">
                             <div className="booking-wrapper bg-c">
                             <DataTable data={attendance} 

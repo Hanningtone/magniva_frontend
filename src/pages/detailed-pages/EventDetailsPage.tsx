@@ -2,6 +2,7 @@ import { useEffect, useCallback, useState, useContext  } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from "styled-components";
 import { AdminLayout, 
+    AttendeesForm, 
     SubHeader,
     TableLoaders
  } from "../../components";
@@ -11,6 +12,7 @@ import { Context } from "../../context";
 import CustomModalPane from '../../utils/_modal';
 import { MagnivaEventsForm } from '../../components';
 import { AttendantsUploadForm } from '../../components';
+import EventsNavigation from '../../components/shared/EventsNavigation';
 
 
 const EventDetailsPage = (user: any) => {
@@ -61,7 +63,7 @@ const EventDetailsPage = (user: any) => {
   }
 
   const showModalForm = (show:boolean, 
-    title='Create Invite', 
+    title='Add Attendees', 
     submitTitle='Create Record') =>{
     setModalTitle(title);
     setSubmitTitle(submitTitle);
@@ -104,16 +106,7 @@ const EventDetailsPage = (user: any) => {
             <div className="container-fluid">
 
             <div className="row">
-              <div className="col-lg-2">
-                    <Button>
-                          <a href="#" className='link-text' id = 'create-event' onClick = {()=>showModalForm(!showModal)}> Invite Attendants</a>
-                    </Button>
-               </div>
-              <div className="col-lg-2">
-                    <Button>
-                          <a href="#" className='link-text' id = 'upload-attendants' onClick = {()=>showModalFileUploadForm(!showFileUploadModal)}> Upload Attendants </a>
-                    </Button>
-               </div>
+            <EventsNavigation />
             </div>
             <div className="page-title">
                 <h3>Event Details </h3>
@@ -137,7 +130,7 @@ const EventDetailsPage = (user: any) => {
            hideThisModal={() => setShowModal(false)}
            >
             { message && <div className={classname}>{message}</div> }
-            <MagnivaEventsForm 
+            <AttendeesForm 
                 setShowModal={setShowModal}
                 submitTitle={submitTitle}
                 />

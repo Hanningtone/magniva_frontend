@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import logo from "../../assets/images/Magniva_redone.jpeg";
+import logo from "../../assets/images/magniva_logo_no_bg.png";
 import Avatar from 'react-avatar';
 
 const AdminHeader = (props: any) => {
+    const { handleSearch } = props;
 
     return(
         <HeaderWrapper>
@@ -10,8 +11,7 @@ const AdminHeader = (props: any) => {
                  <div className="row">
                      <div className="col-lg-3">
                         <div className="logo">
-                           <i className="fa fa-bars"/>
-                           <img className="imglogo" src={logo} alt="Magniva Logo"/>
+                        <img className="imglogo" src={logo} alt="Magniva Logo"/>
                         </div>
                      </div>
                      <div className="col-lg-6 d-flex justify-content-center text-center">
@@ -21,6 +21,7 @@ const AdminHeader = (props: any) => {
                                     className="form-control px-5" 
                                     id="searchTxt" 
                                     placeholder="Global search"
+                                    onChange = {handleSearch}
                                 />
                             <i className="setting-icon fa fa-cog" aria-hidden="true"></i>    
                         </div>
@@ -28,7 +29,6 @@ const AdminHeader = (props: any) => {
                      <div className="col-lg-3 text-right">
                         <div className="right-container">
                             <div className="help-wrapper">
-                                <i className="fa fa-question"></i>
                             </div>
                             <div className="user-profile">
                                 <Avatar color={'#931a1d'} round={true} name="Hanningtone Ommila" size="35" />
@@ -54,7 +54,7 @@ const AdminHeader = (props: any) => {
 
 const HeaderWrapper = styled.div`
     padding: 0 1.6rem;
-    background-color: #fff;
+    background-color: rgba(0,0,0, 0.08);;
     height: auto;
     width: 100%;
     display: flex;
@@ -85,8 +85,8 @@ const HeaderWrapper = styled.div`
         }
     }
     .imglogo{
-       width: 210px;
-       height:45px;
+       width: 244px;
+       height:50px;
        margin-top:2px;
     }
     .input-wrapper{

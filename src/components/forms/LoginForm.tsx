@@ -1,7 +1,7 @@
 import {useState, useContext, useEffect, useCallback} from "react";
 import { useForm } from "react-hook-form";
 import {useNavigate} from 'react-router-dom';
-import logo from "../../assets/images/logo.jpeg";
+import logo from "../../assets/images/Magniva_redone.jpeg";
 import styled from "styled-components";
 import { useMutation} from 'react-query';
 import {Context}  from '../../context';
@@ -11,12 +11,28 @@ import { setLocalStorage }  from '../../utils/local-storage';
 const LoginForm = () => {
 
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
+    const[modalTitle, setModalTitle] = useState("Create Attendee");
+    const[submitTitle, setSubmitTitle] = useState("Create an Attendee");
 
     const [state, dispatch] = useContext(Context);
+
+      
+    const showModalForm = (show:boolean, 
+        title='Create Invite', 
+        submitTitle='Create Record') =>{
+        setModalTitle(title);
+        setSubmitTitle(submitTitle);
+        setShowModal(show);
+      }
+      const goHome = () => {
+        navigate('/home')
+      }
+  
 
     const handleSubmitUserLogin = (values:any) => {                                            
         let endpoint = '/auth/login';                                             
@@ -39,10 +55,10 @@ const LoginForm = () => {
     return(
         <Card>
             <img className="imglogo text-center" src={logo} alt="Magniva Logo"/>
-            <h5 className="mt-3 mb-5 text-center">Staff Extranet Login</h5>
+            <h5 className="mt-3 mb-5 text-center">Magniva Events Login</h5>
             <span role="alert" className="form-alert bigger">{error}</span>
             <div className="form-container ">
-                <form onSubmit={handleSubmit(handleSubmitUserLogin)}>
+                <form onSubmit={goHome}>
                     <div className="form-group">
                         <label htmlFor="email" className="mb-1">Email address</label>
                         <input type="text" 
@@ -76,9 +92,11 @@ const LoginForm = () => {
                             <button type="button" className="btn btn-success btn-block px-5 py-2">   Please wait...  </button>
                         }
                     </div>
+                    <a href="" onClick = { () => {console.log(" Nothing") }}> Register Here</a>
                 </form>
             </div>
         </Card>
+        
     )
 }
 
@@ -93,8 +111,8 @@ const Card = styled.div`
     align-items: center;
 
     .imglogo{
-        width:200px;
-        height:35px;
+        width:300px;
+        height:50px;
     }
     .form-group{
         text-align: left

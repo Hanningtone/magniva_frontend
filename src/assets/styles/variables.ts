@@ -21,4 +21,5 @@ export enum variables  {
     // border-radius
     border_radius = "4px",
     border_radius_max = "50px",
+    color_brown_shade = "#931a1d99",
 }

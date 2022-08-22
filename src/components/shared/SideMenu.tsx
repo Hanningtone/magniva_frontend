@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import {FcHome} from 'react-icons/fc'
+import {FcCalendar} from 'react-icons/fc'
+import {FcInvite} from 'react-icons/fc'
+import {FcManager} from 'react-icons/fc'
+import {FcApproval} from 'react-icons/fc'
+import {FcStatistics} from 'react-icons/fc'
+import {FcServices} from 'react-icons/fc'
 
 const SideMenu = (props: any) => {
     
@@ -9,14 +16,14 @@ const SideMenu = (props: any) => {
 
     return(
         <Wrapper>
-            <ul style={{  }}>
-                <li className={currentRoute === "home"?"active":""}><a href="/home" className={currentRoute === "home"?"active":""}><i className="fa fa-home" style={{ "color" : "#283351" }}></i> Home</a></li>
-                <li className={currentRoute === "magniva-events"?"active":""}><a href="/magniva-events" className={currentRoute === "magniva-events"?"active":""}><i className="fa fa-file-text-o" style={{ "color" : "#283351" }}></i> Events</a></li>
-                <li className={currentRoute === "invites"?"active":""}><a href="/invites"  className={currentRoute === "invites"?"active":""}><i className="fa fa-bed" style={{ "color" : "#283351" }}></i> Invites</a></li>
-                <li className={currentRoute === "attendees"?"active":""}><a href="/attendees"  className={currentRoute === "attendees"?"active":""}><i className="fa fa-bed" style={{ "color" : "#283351" }}></i> Attendees</a></li>
-                <li className={currentRoute === "attendance"?"active":""}><a href="/attendance"  className={currentRoute === "attendance"?"active":""}><i className="fa fa-bed" style={{ "color" : "#283351" }}></i> Attendance</a></li>
-                <li className={currentRoute === "theme"?"active":""}><a href="/theme"  className={currentRoute === "theme"?"active":""}><i className="fa fa-leaf" style={{ color:'#283351' }}></i> Themes</a></li>
-                <li className={currentRoute === "settings"?"active":""}><a href="/settings" className={currentRoute === "settings"?"active":""}><i className="fa fa-gears" style={{ "color" : "#283351" }}></i> Settings</a></li>{/* users, app settings, booking window, ranking algorithm*/}
+            <ul>
+                <li className={currentRoute === "home"?"active":""}><a href="/home" className={currentRoute === "home"?"active":""}><i> <FcHome/> </i> Home</a></li>
+                <li className={currentRoute === "magniva-events"?"active":""}><a href="/magniva-events" className={currentRoute === "magniva-events"?"active":""}><i> <FcCalendar/> </i> Events</a></li>
+                <li className={currentRoute === "invites"?"active":""}><a href="/invites"  className={currentRoute === "invites"?"active":""}><i> <FcInvite /> </i> Invites</a></li>
+                <li className={currentRoute === "attendees"?"active":""}><a href="/attendees"  className={currentRoute === "attendees"?"active":""}><i> <FcManager /> </i> People</a></li>
+                <li className={currentRoute === "attendance"?"active":""}><a href="/attendance"  className={currentRoute === "attendance"?"active":""}><i> <FcApproval /> </i> Attendance</a></li>
+                <li className={currentRoute === "attendance"?"active":""}><a href="/attendance"  className={currentRoute === "attendance"?"active":""}><i> <FcStatistics /> </i> Performance </a></li>
+                <li className={currentRoute === "settings"?"active":""}><a href="/settings" className={currentRoute === "settings"?"active":""}><i> <FcServices /> </i> Settings</a></li>{/* users, app settings, booking window, ranking algorithm*/}
                 {/*<li><a href="/alerts"><i className="fa fa-bell-o"></i> Alerts <span className="count">2</span></a></li>*/}
             </ul>
         </Wrapper>
@@ -24,11 +31,11 @@ const SideMenu = (props: any) => {
 }
 
 const Wrapper = styled.div`
-    background-color:#fff;
+    background-color:rgba(0,0,0,0.08);
     height: 100%;
-    width:110px;
+    width:120px;
     position:fixed;
-    top:70px;
+    top:78px;
     border-right: 1px solid #ccc;
     z-index: 10;
     ul{
@@ -61,7 +68,7 @@ const Wrapper = styled.div`
             }
         }
         li:hover, li.active{
-            background-color: #931a1d;
+            background-color: #931a1d99;
             color: #fff;
             a{
                 color: #fff;

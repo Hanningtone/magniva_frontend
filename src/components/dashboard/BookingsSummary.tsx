@@ -14,7 +14,7 @@ const BookingSummary= (props: Props) => {
     const [upcomingEvents, setUpcomingEvents]  = useState(null);
 
     const fetchUpcomingEvents = useCallback(() => {
-        let endpoint = "/magniva-events/get?limit=20"
+        let endpoint = "/magniva-events/get?limit=5"
         makeRequest({url:endpoint, method:"get",data:null}).then(([status, result]) => {
             if(status == 200){
                 setUpcomingEvents(result?.data);

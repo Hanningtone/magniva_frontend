@@ -6,6 +6,8 @@ import { Bubble, Doughnut, Bar } from "react-chartjs-2";
 import makeRequest from "../utils/fetch-request";
 import CustomModalPane, { GenericDeleteModal } from "../utils/_modal";
 import { MagnivaEventsForm } from "../components";
+import Clock from "../components/shared/Clock";
+import Events from "../components/shared/Events";
 
 
 
@@ -18,7 +20,7 @@ const HomePage = (user: any) => {
             label: "Sent Invites",
             data: [33, 53, 85, 41, 44, 65],
             fill: true,
-            backgroundColor: "#B15B5D",
+            backgroundColor: "#931a1d66",
             borderColor: "#274156"
           },
           {
@@ -73,11 +75,15 @@ const HomePage = (user: any) => {
 
 const [invites, setInvites] = useState([]);
 const [upcomingEvents, setUpcomingEvents]  = useState([]);
+const[allUpcomingEvents, setAllComingEvents] = useState([]);
 const fetchUpcomingEvents = useCallback(() => {
-    let endpoint = "/magniva-events/get?limit=4"
+    let endpoint = "/magniva-events/get"
     makeRequest({url:endpoint, method:"get",data:null}).then(([status, result]) => {
         if(status == 200){
-            setUpcomingEvents(result?.data);
+            setAllComingEvents(result?.data);
+            let theResult = result?.data;
+            theResult.length = 5;
+            setUpcomingEvents(theResult);
         }
     })
 
@@ -90,8 +96,21 @@ useEffect(() =>{
 }, [fetchUpcomingEvents])
 
     return(
+        <>
         <AdminLayout showSideMenu={true}>
+        <div className="container-fluid top-info">
+                <div className="row">
+                    <div className="col-lg-2 clock-div">
+                        <Clock />
+                    </div>
+                    <div className="col-lg-2">
+                        <Events />
+                    </div>     
+                </div>
+      
+            </div>  
         <Home>
+
             <div className="container-fluid py-5 px-4">
                 <div className="row">
                     <div className="col-lg-2">
@@ -101,7 +120,7 @@ useEffect(() =>{
                            </div>
                            <div className="stat-top-wrapper">
                                 <p className="stat-title"> Total Events</p>
-                                <p className="stat-total">{upcomingEvents.length}</p>
+                                <p className="stat-total">11</p>
                            </div>
                            <div className="stat-bottom-wrapper">
                                <p><span className="text-success fw-bold">+5% </span>increase since last month</p>
@@ -115,7 +134,7 @@ useEffect(() =>{
                             </div>
                             <div className="stat-top-wrapper">
                                 <p className="stat-title">Events In Progress</p>
-                                <p className="stat-total">{upcomingEvents.length}</p>
+                                <p className="stat-total"> 1</p>
                            </div>
                            <div className="stat-bottom-wrapper">
                                <p><span className="text-danger fw-bold">-5% </span>decrease since last month</p>
@@ -129,7 +148,7 @@ useEffect(() =>{
                            </div>
                             <div className="stat-top-wrapper">
                                 <p className="stat-title">Total Customers</p>
-                                <p className="stat-total">{upcomingEvents.length}</p>
+                                <p className="stat-total">100</p>
                             </div>
                             <div className="stat-bottom-wrapper">
                                <p><span className="text-success fw-bold">+5% </span>increase since last month</p>
@@ -214,6 +233,7 @@ useEffect(() =>{
         </CustomModalPane>
         </Home>
         </AdminLayout>
+        </>
     )
 
 }
@@ -261,6 +281,9 @@ const Home = styled.div`
         height:460px;
         width:100%;
     }
+    .clock-div {
+        border-right: 1px solid #ccc;
+        }
     `
 
 export default HomePage;
