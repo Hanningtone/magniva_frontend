@@ -15,6 +15,12 @@ const MagnivaEventsForm = (props) => {
             placeholder : 'Enter New Event',
             required : false
          },
+         event_description : {
+            type: 'textarea',
+            label : ' Event Description ',
+            placeholder : 'Enter Event Description',
+            required : true
+         },
          theme_id : {
             type: 'db_select',
             label : ' Select Theme ',
@@ -58,12 +64,6 @@ const MagnivaEventsForm = (props) => {
             label : 'End Date',
             placeholder : 'Enter End Date',
             required : false
-         },
-         event_description : {
-            type: 'textarea',
-            label : ' Event Description ',
-            placeholder : 'Enter Event Description',
-            required : true
          },
     }
     const navigate = useNavigate();

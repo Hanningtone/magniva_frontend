@@ -44,12 +44,14 @@ export default createGlobalStyle`
     display: flex;
     flex-direction: row;
         .section-one, .section-two {
+            background-color: rgba(4,0,1,0.9);
             height: 100%;
             width: 50%;
             position: fixed;
             z-index: 1;
             top: 0;
             overflow-x: hidden;
+            color : white;
         }
 
         .section-one {
@@ -63,12 +65,12 @@ export default createGlobalStyle`
                 // filter: brightness(50%);
             }
 
-            .image-text {
+            .text-center{
                 position: absolute;
                 top: 35%;
                 left: 10%;
                 font-size: 30px;
-                color: $color-white;
+                color: $color-white
 
                 p {
                     font-size: 2rem;
@@ -342,6 +344,15 @@ export default createGlobalStyle`
     }
     .clock-div{
         border-right: 1px solid #ccc;
+    }
+    .events__progresss {
+        height: 110px;
+        width : 110px;
+        display: flex;
+    }
+    .enclose_circular_bar{
+        height :140px;
+        width : 140px;
     }
 
      `;

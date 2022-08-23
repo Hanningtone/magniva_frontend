@@ -9,14 +9,10 @@ import {
   SettingsForm,
 } from "../components";
 import makeRequest from "../utils/fetch-request";
-import DataTable from "../utils/table";
-import CustomModalPane, { GenericDeleteModal } from "../utils/_modal";
 import { Context } from "../context";
-import { string } from "prop-types";
-import SettingsMenu from "../components/settings/SettingsMenu";
 import { FcServices } from 'react-icons/fc'
 
-const SettingsPage = (user: any) => {
+const PerformancePage = (user: any) => {
   const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
   const [settings, setSettings] = useState([]);
   const [error, setError] = useState(null);
@@ -119,7 +115,7 @@ const SettingsPage = (user: any) => {
       <Home>
         <div  className="in__construction">
           <FcServices/>
-          <h1>Settings In Construction </h1>
+          <h1>Performance In Construction </h1>
         </div>
       </Home>
     </AdminLayout>
@@ -174,4 +170,4 @@ const Home = styled.div`
     margin: 20px 0px 100px 0px;
   }
 `;
-export default SettingsPage;
+export default PerformancePage;

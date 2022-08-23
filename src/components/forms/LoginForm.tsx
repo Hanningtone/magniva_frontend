@@ -1,7 +1,7 @@
 import {useState, useContext, useEffect, useCallback} from "react";
 import { useForm } from "react-hook-form";
 import {useNavigate} from 'react-router-dom';
-import logo from "../../assets/images/Magniva_redone.jpeg";
+import logo from "../../assets/images/magniva_logo_no_bg.png";
 import styled from "styled-components";
 import { useMutation} from 'react-query';
 import {Context}  from '../../context';
@@ -55,7 +55,7 @@ const LoginForm = () => {
     return(
         <Card>
             <img className="imglogo text-center" src={logo} alt="Magniva Logo"/>
-            <h5 className="mt-3 mb-5 text-center">Magniva Events Login</h5>
+            <h5 className="mt-3 mb-5 text-center">Login</h5>
             <span role="alert" className="form-alert bigger">{error}</span>
             <div className="form-container ">
                 <form onSubmit={goHome}>

@@ -1,13 +1,16 @@
 import styled from "styled-components";
-import { AdminLayout, LineChart, BookingSummary} from "../components";
+import { AdminLayout, BookingSummary} from "../components";
 import React, { useContext, useEffect, useState, useCallback, } from "react";
 import {Context}  from '../context';
-import { Bubble, Doughnut, Bar } from "react-chartjs-2";
+import { Doughnut, Bar } from "react-chartjs-2";
 import makeRequest from "../utils/fetch-request";
-import CustomModalPane, { GenericDeleteModal } from "../utils/_modal";
+import CustomModalPane , { GenericDeleteModal } from "../utils/_modal";
+import CustomModalPaneNotify from "../utils/_modal";
 import { MagnivaEventsForm } from "../components";
 import Clock from "../components/shared/Clock";
 import Events from "../components/shared/Events";
+
+
 
 
 
@@ -41,6 +44,13 @@ const HomePage = (user: any) => {
     const [state, dispatch ] =  useContext(Context);
     const[modalTitle, setModalTitle] = useState("Create Attendee");
     const[submitTitle, setSubmitTitle] = useState("Create an Attendee");
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    
+
+    // For Notification Modal
+    const [showNofitication, setShowNotification] = useState(false);
+    let notificationTitle = "We're Under Construction... Come around in a short moment";
+    let messageTitle = "Just a Minute, We in Construction";
 
   
     useEffect(() => {
@@ -65,11 +75,15 @@ const HomePage = (user: any) => {
   
   
     const showModalForm = (show:boolean, 
-      title='Create Invite', 
+      title='Create Event', 
       submitTitle='Create Record') =>{
       setModalTitle(title);
       setSubmitTitle(submitTitle);
       setShowModal(show);
+    }
+    const showInConstructionModal = (show:boolean) => {
+        setShowNotification(show)
+
     }
 
 
@@ -96,14 +110,14 @@ useEffect(() =>{
 }, [fetchUpcomingEvents])
 
     return(
-        <>
+        < div className="hh">
         <AdminLayout showSideMenu={true}>
         <div className="container-fluid top-info">
                 <div className="row">
                     <div className="col-lg-2 clock-div">
                         <Clock />
                     </div>
-                    <div className="col-lg-2">
+                    <div className="col-lg-3">
                         <Events />
                     </div>     
                 </div>
@@ -175,7 +189,7 @@ useEffect(() =>{
                             <ul>
                                 <a href="#" className='link-text' id = 'create-event' onClick = {()=>showModalForm(!showModal)}> Create an Event </a>
                                 <hr></hr>
-                                <a href="#" className='link-text' onClick = {()=>showModalForm(!showModal)}> Check In / Out </a>
+                                <a href="#" className='link-text' onClick = {()=>showInConstructionModal(true)}> Check In / Out </a>
                             </ul>
                         </Button>
                         </div>
@@ -203,6 +217,19 @@ useEffect(() =>{
                              </div>
                         </div>
                     </div>
+
+                    <div className="col-lg-6">
+                        <div className="graph-containers">
+                             <div className="row p-2">
+                                 <div className="col-lg-12">
+                                    <h6 className="mb-3 fs-6">Ongoing Events</h6>
+                                    <div className="bookings">
+                                       <BookingSummary/>
+                                    </div>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -219,7 +246,8 @@ useEffect(() =>{
                     </div>
                 </div>
             </div>*/}
-
+            
+<CustomModalPaneNotify show ={showNofitication} title = {notificationTitle} hideThisModal = { () =>setShowNotification(false)}/>
 <CustomModalPane show={showModal}
            title = {modalTitle}
            target = "create-magniva-events"
@@ -233,7 +261,7 @@ useEffect(() =>{
         </CustomModalPane>
         </Home>
         </AdminLayout>
-        </>
+        </div>
     )
 
 }

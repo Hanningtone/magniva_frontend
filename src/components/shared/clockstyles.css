@@ -32,3 +32,9 @@
     font-size : 14px;
     font-weight : bold; 
   }
+  #today-title {
+    font-size : 14px;
+    color: rgba(141, 15, 24, 0.9);
+    text-shadow: 0 0 10px rgb(226, 226, 226),  0 0 20px rgba(234, 237, 238, 0);
+    font-weight: bold;
+  }

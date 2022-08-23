@@ -22,7 +22,7 @@ const SideMenu = (props: any) => {
                 <li className={currentRoute === "invites"?"active":""}><a href="/invites"  className={currentRoute === "invites"?"active":""}><i> <FcInvite /> </i> Invites</a></li>
                 <li className={currentRoute === "attendees"?"active":""}><a href="/attendees"  className={currentRoute === "attendees"?"active":""}><i> <FcManager /> </i> People</a></li>
                 <li className={currentRoute === "attendance"?"active":""}><a href="/attendance"  className={currentRoute === "attendance"?"active":""}><i> <FcApproval /> </i> Attendance</a></li>
-                <li className={currentRoute === "attendance"?"active":""}><a href="/attendance"  className={currentRoute === "attendance"?"active":""}><i> <FcStatistics /> </i> Performance </a></li>
+                <li className={currentRoute === "performance"?"active":""}><a href="/performance"  className={currentRoute === "performance"?"active":""}><i> <FcStatistics /> </i> Performance </a></li>
                 <li className={currentRoute === "settings"?"active":""}><a href="/settings" className={currentRoute === "settings"?"active":""}><i> <FcServices /> </i> Settings</a></li>{/* users, app settings, booking window, ranking algorithm*/}
                 {/*<li><a href="/alerts"><i className="fa fa-bell-o"></i> Alerts <span className="count">2</span></a></li>*/}
             </ul>
@@ -31,11 +31,12 @@ const SideMenu = (props: any) => {
 }
 
 const Wrapper = styled.div`
-    background-color:rgba(0,0,0,0.08);
+    background-color: rgba(8,5,2, 0.3);
     height: 100%;
     width:120px;
     position:fixed;
     top:78px;
+    text-color: #fff;
     border-right: 1px solid #ccc;
     z-index: 10;
     ul{

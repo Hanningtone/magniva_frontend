@@ -17,6 +17,7 @@ import AttendancePage from "../pages/AttendancePage";
 import MagnivaEvents from "../pages/MagnivaEvents";
 import AttendeesPage from "../pages/AttendeesPage";
 import EventDetailsPage from "../pages/detailed-pages/EventDetailsPage";
+import PerformancePage from "../pages/Performace";
 
 const Links= () => {
 
@@ -42,6 +43,7 @@ const Links= () => {
           <Route path="/magniva-events/detail/:id/" element={<EventDetailsPage user={state.user}/>} />
           <Route path="/magniva-events/detail/:id/:relations" element={<EventDetailsPage user={state.user}/>} />
           <Route path="/upload-excel" element={<UploadExcel user={state.user}/>} />
+          <Route path="/performance" element={<PerformancePage user={state.user}/>} />
 
         </Route>
       </Routes>

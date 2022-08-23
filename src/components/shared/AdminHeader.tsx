@@ -54,7 +54,7 @@ const AdminHeader = (props: any) => {
 
 const HeaderWrapper = styled.div`
     padding: 0 1.6rem;
-    background-color: rgba(0,0,0, 0.08);;
+    background-color: rgba(8,4,2, 0.3);
     height: auto;
     width: 100%;
     display: flex;
