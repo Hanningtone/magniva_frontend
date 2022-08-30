@@ -1,18 +1,20 @@
 import Poster from "../assets/images/cover_photo.jpg";
 import { LoginForm } from "../components";
+import logo from "../assets/images/maniva_no_bg.png";
+import styled from "styled-components";
 
 const LoginPage = () => {
 
     return (
         <div className='login-page'>
-            <section className='section-one'>
-                <img src={Poster} alt='sky.rider' className='login-poster'/>
-            </section>
-            <section className='section-two'>
-                <div className='centered'>
+           <img src= {logo} alt=" Magniva Logo" className="magniva-logo" />
+
+            <div className='section-two'>
+
+                <section className='centered'>
                      <LoginForm/>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     )
 }

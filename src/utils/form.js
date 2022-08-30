@@ -431,6 +431,7 @@ export const LoadForm = (formSchema, submitLabel, endpoint) => {
 
    const onSubmit = (values, { setSubmitting,  resetForm, setStatus, setErrors}) => {
        makeRequest({url:endpoint, method:"post", data:values}).then(([status, result]) => {
+           console.log("Result is ", result, "status is ", status);
            if(status > 299){
                if(status < 500) { 
                    const field_errors = {};
@@ -450,6 +451,7 @@ export const LoadForm = (formSchema, submitLabel, endpoint) => {
            setSubmitting(false);
        });
    }
+   
 
    return ( 
        <Form

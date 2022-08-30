@@ -13,7 +13,6 @@ export default createGlobalStyle`
     background-color: #f1f1f1;
     margin: 0;
     height: 100%;
-    overflow: hidden
   }
   .form-group {
       margin-bottom:10px;
@@ -43,27 +42,16 @@ export default createGlobalStyle`
     padding: 0;
     display: flex;
     flex-direction: row;
-        .section-one, .section-two {
-            background-color: rgba(4,0,1,0.9);
+        .section-two {
+            background-color: #3D0003;
             height: 100%;
-            width: 50%;
+            width: 100%;
             position: fixed;
-            z-index: 1;
+            z-index: -2;
             top: 0;
             overflow-x: hidden;
             color : white;
         }
-
-        .section-one {
-            left: 0;
-            overflow-y: hidden;
-
-            .login-poster {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                // filter: brightness(50%);
-            }
 
             .text-center{
                 position: absolute;
@@ -88,11 +76,9 @@ export default createGlobalStyle`
         }
 
         .section-two {
-            right: 0;
-
             .centered {
                 position: absolute;
-                top: 45%;
+                top: 52%;
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
@@ -353,6 +339,14 @@ export default createGlobalStyle`
     .enclose_circular_bar{
         height :140px;
         width : 140px;
+    }
+    .magniva-logo {
+        padding-top : 1rem;
+        margin-bottom : 3rem;
+        color : #fff;
+        z-index : 1;
+        position : absolute;
+        left : 33%;
     }
 
      `;

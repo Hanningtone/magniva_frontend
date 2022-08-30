@@ -148,6 +148,20 @@ const MagnivaEvents = (user) => {
                                     }
                                   }
                     }/>
+
+                    <br />
+
+                    <DataTable data={filteredEvents} 
+                      showActions = {{
+                        model: "magniva-events",
+                         actions : {
+                                      edit: "#update-business-branches",
+                                      delete: "#generic-delete-modal",
+                                      relations: "attendance@event_id"
+                                    }
+                                  }
+                    }/>
+                    
                     </div>
                     <div className="col-lg-4">
                         <div className="ms-3">

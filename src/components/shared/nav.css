@@ -1,0 +1,36 @@
+nav {
+    background-color: rgb(5, 99, 99);
+    width: max-content;
+    display: block;
+    padding: 0.7rem 1.7rem;
+    z-index: 2;
+    position: fixed;
+    left: 50%;
+    transform: translate(-60%);
+    top: 5rem;
+    display: flex;
+    gap: 0.8rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(15px);
+    color : #fff;
+}
+nav a {
+    background: transparent;
+    padding: 0.8rem;
+    border-radius: 50%;
+    display: flex;
+    color: var(--color-light);
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+nav a:hover {         
+    color: rgba(255, 200, 200, 0.8);
+    font-size : 110%;
+
+}
+nav a:active {
+    background: var(--color-bg);
+    color: var(--color-white)
+}

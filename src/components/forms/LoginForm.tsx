@@ -54,15 +54,13 @@ const LoginForm = () => {
 
     return(
         <Card>
-            <img className="imglogo text-center" src={logo} alt="Magniva Logo"/>
-            <h5 className="mt-3 mb-5 text-center">Login</h5>
+            <h5 className='login-text'>Login</h5>
             <span role="alert" className="form-alert bigger">{error}</span>
             <div className="form-container ">
                 <form onSubmit={goHome}>
                     <div className="form-group">
-                        <label htmlFor="email" className="mb-1">Email address</label>
                         <input type="text" 
-                            className="form-control py-2" 
+                            className="form-control un" 
                             id="email" 
                             placeholder="Enter email"
                             aria-invalid={errors.email ? "true" : "false"}
@@ -72,11 +70,10 @@ const LoginForm = () => {
                             <span role="alert" className="form-alert">Check your email</span>
                         )}
                     </div>
-                    <div className="form-group mt-3">
-                        <label htmlFor="password" className="mb-1">Password</label>
+                    <div className="form-group">
                         <input 
                         type="password" 
-                        className="form-control py-2" 
+                        className="form-control pass" 
                         id="password" 
                         placeholder="Password"
                         aria-invalid={errors.password ? "true" : "false"}
@@ -85,14 +82,14 @@ const LoginForm = () => {
                             <span role="alert" className="form-alert">Check your password</span>
                         )}
                     </div>
-                    <div className="form-group text-center mt-3">
+                    <div className="">
                         {!loading?
-                            <button type="submit" className="btn btn-success btn-block px-5 py-2">   Login  </button>
+                            <button type="submit" className="submit">   Login  </button>
                             :
-                            <button type="button" className="btn btn-success btn-block px-5 py-2">   Please wait...  </button>
+                            <button type="button" className="submit" style={{ color: "" }}>   Please wait...  </button>
                         }
                     </div>
-                    <a href="" onClick = { () => {console.log(" Nothing") }}> Register Here</a>
+                    <a href="" onClick = { () => {console.log(" Nothing") }} className="register"> Register Here</a>
                 </form>
             </div>
         </Card>
@@ -101,19 +98,106 @@ const LoginForm = () => {
 }
 
 const Card = styled.div`
-    padding: 1rem;
-    width: 470px;
+    padding-top: 2rem;
+    width: 500px;
     text-align: center;
-    margin: 0 auto;
-    height: 400px;
+    margin-top: 0rem auto;
+    height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color : rgba(221, 228, 220, 1);
+    border-radius: 2.5em;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
 
     .imglogo{
         width:300px;
         height:50px;
     }
+    .login-text {
+        color : #000;
+    }
+    .un {
+        width: 88%;
+        color: rgb(50, 50, 20);
+        font-weight: 400;
+        font-size: 14px;
+        letter-spacing: 1px;
+        background: rgba(136, 126, 126, 0.04);
+        padding: 10px 40px;
+        border: none;
+        border-radius: 20px;
+        outline: none;
+        box-sizing: border-box;
+        border: 1px solid rgba(50, 0, 60, 0.2);
+        margin-bottom: 50px;
+        margin-left: 46px;
+        text-align: center;
+        margin-bottom: 27px;
+        font-family: 'Poppins', sans-serif;
+        }
+    .pass{
+    width: 88%;
+    color: rgb(50, 50, 20);
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 40px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 1px solid rgba(50, 0, 60, 0.2);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Poppins', sans-serif;
+    }
+    .submit {
+          cursor: pointer;
+          border-radius: 5em;
+          color: #fff;
+          background: #006666;
+          border: 0;
+          padding-left: 60px;
+          padding-right: 60px;
+          padding-bottom: 10px;
+          padding-top: 10px;
+          font-family: 'Poppins', sans-serif;
+          margin-left: 15%;
+          font-size: 14px;
+          box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+      }
+      
+      
+      .register {
+          text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+          color: #006666;
+          margin-left: 15%;
+          font-family: 'Poppins', sans-serif;
+          paddind-top : 40px;
+      }
+      
+      a {
+          text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+          color: #E1BEE7;
+          text-decoration: none
+      }
+      
+      @media (max-width: 600px) {
+          .main {
+              border-radius: 0px;
+          }
+    
+   
+    .un:focus, .pass:focus {
+        border: 2px solid rgba(0, 0, 0, 0.18) !important;
+        
+    }
+
+
     .form-group{
         text-align: left
     }

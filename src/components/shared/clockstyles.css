@@ -15,7 +15,7 @@
     align-items: left;
     flex-direction: column;
     justify-content: left;
-    color: #000;
+    color: #65000B;
     text-shadow: 0 0 10px rgb(226, 226, 226),  0 0 20px rgba(234, 237, 238, 0);
   }
 .clock time{

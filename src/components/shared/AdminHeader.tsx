@@ -54,7 +54,7 @@ const AdminHeader = (props: any) => {
 
 const HeaderWrapper = styled.div`
     padding: 0 1.6rem;
-    background-color: rgba(8,4,2, 0.3);
+    background-color: rgba(117, 5, 5, 0.9);
     height: auto;
     width: 100%;
     display: flex;
@@ -102,8 +102,8 @@ const HeaderWrapper = styled.div`
      }
      .search-icon,.setting-icon {
          position: absolute;
-         color: #931a1d;
-         font-size:20px;
+         color: #f2f2f2;
+         font-size:24px;
          top:9px;
      }
      .search-icon{
@@ -115,6 +115,7 @@ const HeaderWrapper = styled.div`
      .setting-icon{
         right:12px;
         cursor:pointer;
+
      }
      .user-profile{
         width:235px;

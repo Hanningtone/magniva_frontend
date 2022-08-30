@@ -31,7 +31,7 @@ const SideMenu = (props: any) => {
 }
 
 const Wrapper = styled.div`
-    background-color: rgba(8,5,2, 0.3);
+    background-color: rgba(117, 5, 5, 0.9);
     height: 100%;
     width:120px;
     position:fixed;
@@ -46,11 +46,12 @@ const Wrapper = styled.div`
             text-align:center;
             list-style:none;
             padding:15px;
-            border-top: 1px solid #f1f1f1;
-            border-bottom: 1px solid #f1f1f1;
+            border-top: 0.5px solid #848482;
+            border-bottom: 0.5px solid #848482;
             a{
-                color:#000;
+                color:#fff;
                 text-decoration:none;
+                font-family : 'Poppins', sans-serif;
                 i{
                     font-size: 25px;
                     display: block;
@@ -69,7 +70,7 @@ const Wrapper = styled.div`
             }
         }
         li:hover, li.active{
-            background-color: #931a1d99;
+            background-color: rgba(40, 150, 150, 0.8);           
             color: #fff;
             a{
                 color: #fff;

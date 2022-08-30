@@ -9,6 +9,8 @@ import CustomModalPaneNotify from "../utils/_modal";
 import { MagnivaEventsForm } from "../components";
 import Clock from "../components/shared/Clock";
 import Events from "../components/shared/Events";
+import { RiRadioButtonLine } from 'react-icons/ri';
+import { MdUpcoming } from 'react-icons/md'
 
 
 
@@ -30,7 +32,7 @@ const HomePage = (user: any) => {
             label: "Attendance ",
             data: [33, 25, 35, 51, 54, 76],
             fill: false,
-            backgroundColor: "#B7D4FD",            
+            backgroundColor: "rgba(40, 150, 150, 0.8)",            
             borderColor: "#130302"
           }
         ]
@@ -147,7 +149,7 @@ useEffect(() =>{
                                <i className="fa fa-bed"></i>
                             </div>
                             <div className="stat-top-wrapper">
-                                <p className="stat-title">Events In Progress</p>
+                                <p className="stat-title">Ongoing Events</p>
                                 <p className="stat-total"> 1</p>
                            </div>
                            <div className="stat-bottom-wrapper">
@@ -206,10 +208,10 @@ useEffect(() =>{
                         </div>
                     </div>
                     <div className="col-lg-6">
-                        <div className="graph-containers">
+                        <div className="graph-containers upcoming">
                              <div className="row p-2">
                                  <div className="col-lg-12">
-                                    <h6 className="mb-3 fs-6">Upcoming Events</h6>
+                                    <h6 className="mb-3 fs-6 " style={{ color : "#006666" }}> <RiRadioButtonLine /> Happening Now !</h6>
                                     <div className="bookings">
                                        <BookingSummary/>
                                     </div>
@@ -222,7 +224,7 @@ useEffect(() =>{
                         <div className="graph-containers">
                              <div className="row p-2">
                                  <div className="col-lg-12">
-                                    <h6 className="mb-3 fs-6">Ongoing Events</h6>
+                                    <h6 className="mb-3 fs-6" style={{ color : '#182C4E' }}> <MdUpcoming /> Upcoming ...</h6>
                                     <div className="bookings">
                                        <BookingSummary/>
                                     </div>
@@ -277,11 +279,6 @@ align-items: center ;
 &:disabled {
 
 };
-// &:hover{
-//     background-color:#4b5561;
-//     cursor:pointer;
-//     border:1px solid #4b5561;
-// }
 .link-text {
     background-color:#;
     font-weight : bold;
@@ -297,6 +294,10 @@ align-items: center ;
 .checkin{
     padding : 10px; 10px 10px;
 
+}
+.upcoming{
+    color : green;
+    font-size: 50px;
 }
 `;
 
