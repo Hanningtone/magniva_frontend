@@ -7,8 +7,9 @@ const LoginPage = () => {
 
     return (
         <div className='login-page'>
-           <img src= {logo} alt=" Magniva Logo" className="magniva-logo" />
-
+        <section className="magniva-logo" >
+           <img src= {logo} alt=" Magniva Logo"/>
+        </section>
             <div className='section-two'>
 
                 <section className='centered'>

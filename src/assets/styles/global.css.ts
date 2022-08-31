@@ -92,7 +92,6 @@ export default createGlobalStyle`
                 width: 100%;
             }
         }
-    }
     
     .modalx {
         position: fixed;
@@ -116,89 +115,8 @@ export default createGlobalStyle`
         top: 0;
         background-color: rgba(0,0,0,0.5);
     }
-    
-    @media only screen and (min-width: 280px) {
-        .modalx {
-            width: 95%;
-            left: calc(52% - 140px);
-        }
-    }
-    
-    
-    @media only screen and (min-width: 375px) {
-        .modalx {
-            width: 95%;
-            left: calc(50% - 178px);
-        }
-    }
-    
-    
-    @media only screen and (min-width: 390px) {
-        .modalx {
-            width: 95%;
-            left: calc(50% - 185px);
-        }
-    }
-    
-    @media only screen and (min-width: 412px), (min-width: 414px) {
-        .modalx {
-            width: 95%;
-            left: calc(50% - 196px);
-        }
-    }
-    
-    @media only screen and (min-width: 540px) {
-        .modalx {    
-            width: 98%;
-            left: calc(47% - 250px);
-        }
-    }
-    
-    @media only screen and (min-width: 576px) {
-        .modalx {
-            width: 100%;
-            left: calc(50% - 250px);
-        }
-    }
-    
-    @media only screen and (min-width: 576px) { 
-        .modalx {
-            width: 100%;
-            left: calc(50% - 250px);
-        }
-    }
-    
-    
-    @media only screen and (min-width: 768px) { 
-        .modalx {
-            width: 500px;
-            left: calc(50% - 250px);
-        }
-     }
-    
-    
-    @media only screen and (min-width: 992px) { 
-        .modalx {
-            width: 500px;
-            left: calc(50% - 250px);
-        }
-     }
-    
-    @media only screen and (min-width: 1200px) { 
-        .modalx {
-            width: 500px;
-            left: calc(50% - 250px);
-        }
-     }
-    
-    @media only screen and (min-width: 1400px) { 
-        .modalx {
-            width: 500px;
-            left: calc(50% - 250px);
-        }
-     }
 
-     .home-stat-wrapper{
+    .home-stat-wrapper{
         background-color: #fff;
         width:100%;
         padding:10px 10px 0px 10px;
@@ -341,12 +259,90 @@ export default createGlobalStyle`
         width : 140px;
     }
     .magniva-logo {
-        padding-top : 1rem;
-        margin-bottom : 3rem;
-        color : #fff;
         z-index : 1;
-        position : absolute;
+        position : fixed;
         left : 33%;
     }
 
+    
+    @media only screen and (min-width: 280px) {
+        .modalx {
+            width: 95%;
+            left: calc(52% - 140px);
+        }
+    }
+    
+    
+    @media only screen and (min-width: 375px) {
+        .modalx {
+            width: 95%;
+            left: calc(50% - 178px);
+        }
+    }
+    
+    
+    @media only screen and (min-width: 390px) {
+        .modalx {
+            width: 95%;
+            left: calc(50% - 185px);
+        }
+    }
+    
+    @media only screen and (min-width: 412px), (min-width: 414px) {
+        .modalx {
+            width: 95%;
+            left: calc(50% - 196px);
+        }
+    }
+    
+    @media only screen and (min-width: 540px) {
+        .modalx {    
+            width: 98%;
+            left: calc(47% - 250px);
+        }
+    }
+    
+    @media only screen and (min-width: 576px) {
+        .modalx {
+            width: 100%;
+            left: calc(50% - 250px);
+        }
+    }
+    
+    @media only screen and (min-width: 576px) { 
+        .modalx {
+            width: 100%;
+            left: calc(50% - 250px);
+        }
+    }
+    
+    
+    @media only screen and (min-width: 768px) { 
+        .modalx {
+            width: 500px;
+            left: calc(50% - 250px);
+        }
+     }
+    
+    
+    @media only screen and (min-width: 992px) { 
+        .modalx {
+            width: 500px;
+            left: calc(50% - 250px);
+        }
+     }
+    
+    @media only screen and (min-width: 1200px) { 
+        .modalx {
+            width: 500px;
+            left: calc(50% - 250px);
+        }
+     }
+    
+    @media only screen and (min-width: 1400px) { 
+        .modalx {
+            width: 500px;
+            left: calc(50% - 250px);
+        }
+     }
      `;
