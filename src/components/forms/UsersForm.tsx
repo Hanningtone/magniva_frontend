@@ -45,12 +45,18 @@ const UsersForm = (props: Props) => {
              label : 'Password',
              required : true
  
-         }
+         },
+         password_confirmation : {
+            type : 'password',
+            label : 'Confirm Password',
+            required : true
+
+        }
 
 
     }
     const [label, setLabel] = useState("Create User");
-    const [endpoint, setEndpoint] = useState("/users/create");
+    const [endpoint, setEndpoint] = useState("/auth/register");
  
     return(
         <FormWrapper>

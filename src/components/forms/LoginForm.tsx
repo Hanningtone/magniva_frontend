@@ -1,68 +1,90 @@
-import {useState, useContext, useEffect, useCallback} from "react";
+import {useState, useContext, useEffect, useCallback, useTransition} from "react";
 import { useForm } from "react-hook-form";
 import {useNavigate} from 'react-router-dom';
-import logo from "../../assets/images/magniva_logo_no_bg.png";
+import logo from "../../assets/images/maniva_no_bg.png";
 import styled from "styled-components";
 import { useMutation} from 'react-query';
 import {Context}  from '../../context';
 import makeRequest from '../../utils/fetch-request';
 import { setLocalStorage }  from '../../utils/local-storage';
+import CustomModalPane from "../../utils/_modal";
+import UsersForm from "./UsersForm";
 
-const LoginForm = () => {
+const LoginForm = (props:any) => {
+    const { hideRegisterModal } = props;
 
+    
+    const [message, setMessage] = useState();
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
-    const[modalTitle, setModalTitle] = useState("Create Attendee");
-    const[submitTitle, setSubmitTitle] = useState("Create an Attendee");
-
+    const[modalTitle, setModalTitle] = useState("Create Account");
+    const[submitTitle, setSubmitTitle] = useState("Create an Account");
     const [state, dispatch] = useContext(Context);
+    const [classname, setClassname] = useState('');
 
-      
-    const showModalForm = (show:boolean, 
-        title='Create Invite', 
-        submitTitle='Create Record') =>{
-        setModalTitle(title);
-        setSubmitTitle(submitTitle);
-        setShowModal(show);
+    useEffect(() => {
+        dispatch({type:"SET", key:'context', payload:'eventspage'});
+    }, [])
+  
+    useEffect(() => {
+      if(state?.context){
+        let status = state[state.context].status;
+        let message = state[state.context].message;
+        let data = state[state.context]?.data || {};
+  
+        if(status === true){
+          setClassname('alert alert-success');     
+        } else {
+          setClassname('alert alert-danger');
+        }
+        setMessage(message);
       }
+  
+    }, [state?.eventspage])
+
       const goHome = () => {
         navigate('/home')
       }
-  
-
     const handleSubmitUserLogin = (values:any) => {                                            
-        let endpoint = '/auth/login';                                             
+        let endpoint = '/auth/login';
+        console.log(" Values Passed ", values);                                       
         setLoading(true)                                                      
         makeRequest({url: endpoint, method: 'POST', data: values}).then(([status, response]) => {
+            console.log(" Response Status", response, status);
             setLoading(false)                                                 
-            if(status === 200 ){               
+            if(status === 200 ){
                 setLocalStorage('user', response.data);
                 dispatch({type:'SET', key:'user', payload:response.data});
                 navigate('/home')
+                console.log(" Response on 200", response, status)
             } else {             
                 console.log("Response error", response, status);
                 setError(response.message)
             }                                                                   
         })                                                                      
-    } 
+    }
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     return(
+        <>
         <Card>
+
             <h5 className='login-text'>Login</h5>
+
+
             <span role="alert" className="form-alert bigger">{error}</span>
             <div className="form-container ">
-                <form onSubmit={goHome}>
+                <form onSubmit={ handleSubmit(handleSubmitUserLogin) }>
                     <div className="form-group">
                         <input type="text" 
                             className="form-control un" 
                             id="email" 
-                            placeholder="Enter email"
+                            placeholder="Enter Email"
                             aria-invalid={errors.email ? "true" : "false"}
                             {...register('username', { required: true})}
                         />
@@ -74,7 +96,7 @@ const LoginForm = () => {
                         <input 
                         type="password" 
                         className="form-control pass" 
-                        id="password" 
+                        id="password"
                         placeholder="Password"
                         aria-invalid={errors.password ? "true" : "false"}
                         {...register('password', { required: true})}/>
@@ -83,16 +105,26 @@ const LoginForm = () => {
                         )}
                     </div>
                     <div className="">
-                        {!loading?
+                        {!loading ?
                             <button type="submit" className="submit">   Login  </button>
                             :
-                            <button type="button" className="submit" style={{ color: "" }}>   Please wait...  </button>
+                            <button type="button" className="submit">   Please wait...  </button>
                         }
                     </div>
-                    <a href="" onClick = { () => {console.log(" Nothing") }} className="register"> Register Here</a>
                 </form>
             </div>
         </Card>
+        <CustomModalPane show={showModal}
+           title = {modalTitle}
+           target = "create-user"
+           hideThisModal={() => setShowModal(true)}
+           >
+            { message && <div className={classname}>{message}</div> }
+            <UsersForm 
+                setShowModal={showModal}
+                />
+        </CustomModalPane>
+        </>
         
     )
 }
@@ -102,7 +134,7 @@ const Card = styled.div`
     width: 500px;
     text-align: center;
     margin-top: 0rem auto;
-    height: 300px;
+    height: 380px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -172,7 +204,7 @@ const Card = styled.div`
       }
       
       
-      .register {
+      .reg {
           text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
           color: #006666;
           margin-left: 15%;

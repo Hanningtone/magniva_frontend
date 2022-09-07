@@ -196,7 +196,7 @@ const DataTable = (props) => {
     }, [props.data]);
 
     return (
-    <div>
+    <>
               <table className=" table align-items-center table-flush ">
                 <TableHeader headers={tableHeaders}  showActions={props.showActions && true}/>
                 <tbody>
@@ -224,7 +224,7 @@ const DataTable = (props) => {
 
                 </tbody>
               </table>
-              </div>
+              </>
 
     );
 }

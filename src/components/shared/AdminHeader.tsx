@@ -23,7 +23,7 @@ const AdminHeader = (props: any) => {
                                     placeholder="Global search"
                                     onChange = {handleSearch}
                                 />
-                            <i className="setting-icon fa fa-cog" aria-hidden="true"></i>    
+                              
                         </div>
                      </div>
                      <div className="col-lg-3 text-right">
@@ -44,7 +44,9 @@ const AdminHeader = (props: any) => {
                                     <p className="loguser">logout</p>
                                 </div>
                             </div> 
+                            
                         </div>
+                        <i className="setting-icon fa fa-cog" aria-hidden="true"></i>  
                      </div>
                  </div>
              </div>
@@ -107,13 +109,13 @@ const HeaderWrapper = styled.div`
          top:9px;
      }
      .search-icon{
-        left:13px;
+        left: 13px;
      }
      .bigger-row{
 
      }
      .setting-icon{
-        right:12px;
+        right:15px;
         cursor:pointer;
 
      }
@@ -189,6 +191,8 @@ const HeaderWrapper = styled.div`
         }
     .right-container{
         display:flex;
+        position : fixed;
+        right : 5%;
         flex-direction: flow;
         margin-left:40px;
         .help-wrapper{

@@ -11,7 +11,6 @@ import DataTable from "../../utils/table"
 import { Context } from "../../context";
 import HotelMenu from '../../components/settings/HotelMenu';
 
-
 const HotelDetailsPage = (user: any) => {
 
     const [classname, setClassname] = useState('success');
@@ -20,7 +19,8 @@ const HotelDetailsPage = (user: any) => {
     const [error, setError] = useState();
     const [hotelDetails, setHotelDetails] = useState();
     const { id, relations } = useParams();
-  
+
+
     const fetchHotelDetais= useCallback(() => {
 
       let _url = "/business/detail/"+id;
@@ -73,7 +73,7 @@ const HotelDetailsPage = (user: any) => {
                                     <div className="home-stat-wrapper">
                                         <div className="stat-icon">
                                         <i className="fa fa-bed"></i>
-                                        </div>
+                                        </div>s
                                         <div className="stat-top-wrapper">
                                             <p className="stat-title">Rooms Available</p>
                                             <p className="stat-total"></p>

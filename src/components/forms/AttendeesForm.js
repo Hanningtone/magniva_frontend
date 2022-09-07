@@ -39,7 +39,7 @@ const AttendeesForm = (props) => {
             label : 'Designation',
             placeholder : 'e.g Assistant Manager',
             required : true,
-         },
+         }, 
          organization : {
             type: 'text',
             label : 'Organization ',

@@ -47,6 +47,7 @@ const Booking = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: scroll;
     }`
 
 export default BookingSummary;

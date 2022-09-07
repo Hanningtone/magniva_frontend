@@ -1,5 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
-
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   body {
@@ -37,19 +36,19 @@ export default createGlobalStyle`
      }
      
  }
-  .login-page {
+  .section-two {
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: row;
-        .section-two {
-            background-color: #3D0003;
+    background-color: #3D0003;
             height: 100%;
             width: 100%;
-            position: fixed;
+            position: fixed;x
             z-index: -2;
             top: 0;
             overflow-x: hidden;
+            overflow-y: hidden;
             color : white;
         }
 
@@ -70,14 +69,13 @@ export default createGlobalStyle`
                     font-family: $font-primary-heavy;
                 }
             }
-        }
         .fa-home{
         color: red;
         }
 
         .section-two {
             .centered {
-                position: absolute;
+                position: fixed;
                 top: 52%;
                 left: 50%;
                 transform: translate(-50%, -50%);
@@ -241,7 +239,7 @@ export default createGlobalStyle`
         color: var(--color-white)
     }
     .top-info {
-        height : 120px;
+        height : 15vh;
         margin-top : 9px;
         padding-top : 1.5rem;
         
@@ -259,19 +257,31 @@ export default createGlobalStyle`
         width : 140px;
     }
     .magniva-logo {
-        z-index : 1;
         position : fixed;
-        left : 33%;
+        top :1.5rem;
+        height : 22%;
+        width : 26%;
+        z-index : 1;
+        left : 38%;
     }
-
-    
+    .register {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        background-color : rgba(221, 228, 220, 1);
+        color: #006666;
+        position : absolute;
+        left:46%;
+        bottom: 33%;
+        font-family: 'Poppins', sans-serif;
+        paddind-top : 40px;
+        border: none;
+        
+    }
     @media only screen and (min-width: 280px) {
-        .modalx {
-            width: 95%;
-            left: calc(52% - 140px);
-        }
-    }
-    
+             .modalx {
+              width: 95%;
+              left: calc(52% - 140px);
+             }
+         }
     
     @media only screen and (min-width: 375px) {
         .modalx {

@@ -112,7 +112,6 @@ useEffect(() =>{
 }, [fetchUpcomingEvents])
 
     return(
-        < div className="hh">
         <AdminLayout showSideMenu={true}>
         <div className="container-fluid top-info">
                 <div className="row">
@@ -219,8 +218,10 @@ useEffect(() =>{
                              </div>
                         </div>
                     </div>
-
-                    <div className="col-lg-6">
+                </div>
+            </div>
+            <div className="row">
+            <div className="col-lg-12">
                         <div className="graph-containers">
                              <div className="row p-2">
                                  <div className="col-lg-12">
@@ -232,7 +233,6 @@ useEffect(() =>{
                              </div>
                         </div>
                     </div>
-                </div>
             </div>
 
             {/* <div className="container-fluid px-4 pb-5">
@@ -250,7 +250,7 @@ useEffect(() =>{
             </div>*/}
             
 <CustomModalPaneNotify show ={showNofitication} title = {notificationTitle} hideThisModal = { () =>setShowNotification(false)}/>
-<CustomModalPane show={showModal}
+        <CustomModalPane show={showModal}
            title = {modalTitle}
            target = "create-magniva-events"
            hideThisModal={() => setShowModal(false)}
@@ -263,7 +263,6 @@ useEffect(() =>{
         </CustomModalPane>
         </Home>
         </AdminLayout>
-        </div>
     )
 
 }
