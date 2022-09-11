@@ -61,8 +61,8 @@ const HomePage = (user: any) => {
   
     useEffect(() => {
       if(state?.context){
-        let status = state[state.context].status;
-        let message = state[state.context].message;
+        let status = state[state.context]?.status;
+        let message = state[state.context]?.message;
         let data = state[state.context]?.data || {};
   
         if(status === true){
