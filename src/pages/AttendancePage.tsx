@@ -16,7 +16,6 @@ import HotelMenu from '../components/settings/HotelMenu';
 
 
 const AttendancePage = (user: any) => {
-
     const [showModal, setShowModal] = useState(false); // showModal variable that's set to false.
     const [attendance, setAttendance] = useState([]);
     const [error, setError] = useState(null);
@@ -31,7 +30,8 @@ const AttendancePage = (user: any) => {
     useEffect(() => {
         dispatch({type:"SET", key:'context', payload:'attendance'});
     }, [])
-  
+
+    
     useEffect(() => {
       if(state?.context){
         let status = state[state.context].status;
@@ -128,7 +128,7 @@ const AttendancePage = (user: any) => {
                                             <i className="fa fa-bed"></i>
                                         </div>
                                         <div className="stat-top-wrapper">
-                                                <p className="stat-title">Total Hotels</p>
+                                                <p className="stat-title">Total Events</p>
                                                 <p className="stat-total">300</p>
                                         </div>
                                         <div className="stat-bottom-wrapper">

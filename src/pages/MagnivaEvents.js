@@ -85,10 +85,6 @@ const MagnivaEvents = (user) => {
     
   }, [state?.eventspage],);
   
-
-
-
-
   useEffect(() => {
     
     if(state?.updaterecord){

@@ -51,7 +51,7 @@ const TdActions = (props) => {
             </a>)
         }
         {
-                actions.relations && (<a href={`/${model}/detail/${recordId}/${actions.relations}`} className="text-success m-1" data-placement="top" data-toggle="tooltip" title="View" data-original-title="View">
+                actions.relations && (<a href={`/${model}/detail?id=${recordId}&with=${actions.relations}`} className="text-success m-1" data-placement="top" data-toggle="tooltip" title="View" data-original-title="View">
                 <i className="fa fa-eye"></i>
              </a>)
          }

@@ -40,7 +40,7 @@ const Links= () => {
           <Route path='/users' element={<UsersPage user={state.user}/>} />
           <Route path="/attendees" element={<AttendeesPage user={state.user}/>} />
           <Route path="/attendance" element={<AttendancePage user={state.user}/>} />
-          <Route path="/magniva-events/detail/:id/" element={<EventDetailsPage user={state.user}/>} />
+          <Route path="/magniva-events/detail" element={<EventDetailsPage user={state.user}/>} />
           <Route path="/magniva-events/detail/:id/:relations" element={<EventDetailsPage user={state.user}/>} />
           <Route path="/upload-excel" element={<UploadExcel user={state.user}/>} />
           <Route path="/performance" element={<PerformancePage user={state.user}/>} />

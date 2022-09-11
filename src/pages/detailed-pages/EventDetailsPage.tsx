@@ -20,7 +20,13 @@ const EventDetailsPage = (user: any) => {
   const [state, dispatch] = useContext(Context);
   const [error, setError] = useState();
   const [hotelBranchDetails, setEventDetails] = useState();
-  const { id, relations } = useParams();
+  const search = window.location.search;
+  const params = new URLSearchParams(search);
+ 
+  let url = new URL(window.location.href)    
+  const id = url.searchParams.get('id')
+  const relations = url.searchParams.get('with') || '';
+
   const [title, setTitle] = useState("Magniva");
   const [venue, setVenue] = useState(" Magniva");
   const [location, setLocation] = useState("Magniva");
@@ -58,6 +64,7 @@ const EventDetailsPage = (user: any) => {
     setSubmitTitle(submitTitle);
     setShowFileUploadModal(show);
   };
+
 
   const showModalForm = (
     show: boolean,
