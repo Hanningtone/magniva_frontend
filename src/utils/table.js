@@ -1,6 +1,12 @@
 import React, { useEffect, useState, useContext} from 'react';
 import { Context }  from '../context';
 import styled from 'styled-components';
+import { FaEdit } from 'react-icons/fa'
+import { FcFullTrash } from 'react-icons/fc'
+import {Navigate, useNavigate} from 'react-router-dom';
+import tablestyles from './tablestyles.css';
+
+
 
 const Th = (props) => {
    return <th scope="col"  style={{ "background-color" : "#931a1dbc", "color" : "#fff" }}>{props?.name}</th>
@@ -52,19 +58,19 @@ const TdActions = (props) => {
         }
         {
                 actions.relations && (<a href={`/${model}/detail?id=${recordId}&with=${actions.relations}`} className="text-success m-1" data-placement="top" data-toggle="tooltip" title="View" data-original-title="View">
-                <i className="fa fa-eye"></i>
+                <i className="fa "> </i>
              </a>)
          }
         {
            actions.edit && (<a href="#" onClick={(event) => onEditFunction(event, model, recordId)}  className="text-primary" >
-                <i className="fa fa-edit"></i>
+                <i className="fa action__icons "> <FaEdit /> </i>
              </a>)             
         }
         {
            actions.delete && (<a href="#"  
                onClick={() => deleteItem(model, recordId)} 
                className="text-danger m-1" data-placement="top" data-toggle="tooltip" title="" data-original-title="Delete">
-              <i className="fa fa-trash"></i>
+              <i className="fa action__icons delete"> <FcFullTrash /> </i>
            </a>)   
         }
         
@@ -72,10 +78,13 @@ const TdActions = (props) => {
 
     );
 }
+
 const Td = (props) => {
+    let recordId = props.recordId;
+    const navigate = useNavigate();
     let fontWeight = props?.heading ? "font-weight-bold table-active" :"";
     return (
-       <td colSpan={props?.colspan} className={fontWeight}>
+       <td colSpan={props?.colspan} className={fontWeight} onClick={ ()=>  navigate(`/${props.model}/detail?id=${recordId}&with=${props.actions.relations}`)}>
            <div className={`d-flex align-items-center` }>
             {props?.value}
            </div>
@@ -93,11 +102,11 @@ const Tr = (props) => {
 
    const noneEditableMarkup = () => {
       return (
-          <tr onClick={console.log("Some dope Shit")}>
+          <tr>
             { 
                 Object.entries(props?.row_data||[]).map(([key, value]) => {
                     if(!endsWith(key, "_id") && !(key === 'id')){
-                        return <Td value={value} key={`id-${key}`} colspan={props?.colspan||""} heading={props?.heading||false}/>
+                        return <Td value={value} key={`id-${key}`} colspan={props?.colspan || ""} heading={props?.heading|| false} model={model} recordId={props.recordId} actions = {actions} />
                     }
                 })
             }
@@ -210,9 +219,9 @@ const DataTable = (props) => {
                                 return [headerRow, table];
                             } else if(row?.value && typeof(row.value) == "object"){
                                 let _data = dictValuesToList(row.value);
-                                let headerRow = <Tr row_data={{value:row.key}} key={index} recordId={row.id} colspan={2} heading={true}/>
+                                let headerRow = <Tr row_data={{value:row.key}} key={index} recordId={row.id} colspan={2} heading={true}  />
                                 let newRows =  _data.map((innerRow, innerIndex) => {
-                                   return <Tr  row_data={innerRow}  key={index+"."+innerIndex} showActions={false}  recordId={row.id}/>
+                                   return <Tr  row_data={innerRow}  key={index+"."+innerIndex} showActions={false}  recordId={row.id} />
                                 });
                                 return [headerRow, ...newRows];
                             } else {
@@ -228,6 +237,7 @@ const DataTable = (props) => {
 
     );
 }
+
 const Home = styled.div`
     width: 100%;
     height: auto; 
@@ -235,6 +245,9 @@ const Home = styled.div`
         background-color: #fff;
         height:460px;
         width:100%;
+    }
+    .action-icons {
+        color : blue;
     }
     `
 

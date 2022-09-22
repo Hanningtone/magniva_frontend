@@ -165,7 +165,7 @@ export default createGlobalStyle`
         vertical-align: top;
     }
     table tbody tr: hover td{
-       background-color: #f5f5f5;
+       background-color: #D4EDED;
        cursor: pointer;
     }
     table tbody tr td{
@@ -275,6 +275,12 @@ export default createGlobalStyle`
         paddind-top : 40px;
         border: none;
         
+    }
+    .row-component : hover {
+        background-color : gba(221, 228, 220, 1);
+        
+
+
     }
     @media only screen and (min-width: 280px) {
              .modalx {

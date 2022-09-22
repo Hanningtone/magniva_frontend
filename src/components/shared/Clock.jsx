@@ -14,7 +14,7 @@ const Clock = () => {
     if (minutes === 0) minutes ='00';
 
     setDate(d.toDateString());
-    setTime(`${hours}:${minutes} : Hrs`);
+    setTime(`${hours}:${minutes} Hrs`);
   }
 
   setInterval(getDateAndTime, 1000);

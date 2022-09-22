@@ -22,10 +22,10 @@ const EventDetailsPage = (user: any) => {
   const [hotelBranchDetails, setEventDetails] = useState();
   const search = window.location.search;
   const params = new URLSearchParams(search);
- 
-  let url = new URL(window.location.href)    
-  const id = url.searchParams.get('id')
-  const relations = url.searchParams.get('with') || '';
+
+  let url = new URL(window.location.href);
+  const id = url.searchParams.get("id");
+  const relations = url.searchParams.get("with") || "";
 
   const [title, setTitle] = useState("Magniva");
   const [venue, setVenue] = useState(" Magniva");
@@ -42,8 +42,8 @@ const EventDetailsPage = (user: any) => {
 
   useEffect(() => {
     if (state?.context) {
-      let status = state[state.context].status;
-      let message = state[state.context].message;
+      let status = state[state.context]?.status;
+      let message = state[state.context]?.message;
       let data = state[state.context]?.data || {};
 
       if (status === true) {
@@ -65,7 +65,6 @@ const EventDetailsPage = (user: any) => {
     setShowFileUploadModal(show);
   };
 
-
   const showModalForm = (
     show: boolean,
     title = "Add Attendees",
@@ -86,6 +85,8 @@ const EventDetailsPage = (user: any) => {
           setError(result?.message || "Error, could not fetch records");
         } else {
           setEventDetails(result?.data || []);
+
+
         }
       }
     );
@@ -98,9 +99,23 @@ const EventDetailsPage = (user: any) => {
   return (
     <AdminLayout showSideMenu={true}>
       <Home>
-        <EventsNavigation showModalFileUploadForm={showModalFileUploadForm} showModalForm={showModalForm} />
+        <div className="container-fluid py-5 px-4">
+          <div className="row">
+          <div className="col-lg-3">
+            <p> Shit to Do </p>
 
-        <div className="container-fluid">
+          </div>
+          <div className="col-lg-3">
+            
+          </div>
+            <div className="col-lg-3 floatleft">
+              <EventsNavigation
+                showModalFileUploadForm={showModalFileUploadForm}
+                showModalForm={showModalForm}
+              />
+            </div>
+          </div>
+       
           <DetailedTableContainer>
             <h3> Event Details</h3>
             <DataTable
@@ -109,7 +124,6 @@ const EventDetailsPage = (user: any) => {
               detailedTable={true}
             />
           </DetailedTableContainer>
-        </div>
         <CustomModalPane
           show={showModal}
           title={modalTitle}
@@ -135,6 +149,7 @@ const EventDetailsPage = (user: any) => {
             submitTitle={submitTitle}
           />
         </CustomModalPane>
+        </div>
       </Home>
     </AdminLayout>
   );
@@ -201,7 +216,7 @@ const DetailedTableContainer = styled.div`
   position: absolute;
   top: 10rem;
   width: 50%;
-  padding-left : 20px; 
+  padding-left: 20px;
 `;
 const Home = styled.div`
   width: 100%;
@@ -271,6 +286,9 @@ const Home = styled.div`
     background-color: #7d2727;
   }
   .page-title {
+  }
+  .{
+    
   }
 `;
 export default EventDetailsPage;
