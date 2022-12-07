@@ -108,7 +108,7 @@ const LoginForm = (props:any) => {
                         {!loading ?
                             <button type="submit" className="submit">   Login  </button>
                             :
-                            <button type="button" className="submit">   Please wait...  </button>
+                            <button type="button" className="submit" disabled>   Please wait...  </button>
                         }
                     </div>
                 </form>

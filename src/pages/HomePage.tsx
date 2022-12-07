@@ -47,6 +47,7 @@ const HomePage = (user: any) => {
     const[modalTitle, setModalTitle] = useState("Create Attendee");
     const[submitTitle, setSubmitTitle] = useState("Create an Attendee");
     const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [showHotelsModal, setShowHotelsModal] = useState(false);
     
 
     // For Notification Modal

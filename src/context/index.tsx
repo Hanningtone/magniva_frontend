@@ -17,7 +17,7 @@ const Store = ({children}: {children:ReactNode}) => {
             const localState = localStorage.getItem('user');
             const stateValue = await JSON.parse(localState || '{}');   
             if (stateValue && stateValue !== "{}") {                                                      
-                dispatch({type: 'CREATE', key:'user', payload: stateValue}); 
+                dispatch({type: 'CREATE', key:'user', payload: stateValue});
             }  
          }
          fetchLocatData().catch(console.error);                                                                  

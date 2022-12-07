@@ -7,7 +7,6 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import tablestyles from './tablestyles.css';
 
 
-
 const Th = (props) => {
    return <th scope="col"  style={{ "background-color" : "#931a1dbc", "color" : "#fff" }}>{props?.name}</th>
 }
@@ -43,7 +42,6 @@ const TdActions = (props) => {
        dispatch({type:"SET", key:"deleterecord", payload:{id:id, model:model}});
     };
 
-
     return (
        <td data-title="Action">
         {
@@ -56,7 +54,7 @@ const TdActions = (props) => {
               <i className="fa fa-eye"></i>
             </a>)
         }
-        {
+        {   
                 actions.relations && (<a href={`/${model}/detail?id=${recordId}&with=${actions.relations}`} className="text-success m-1" data-placement="top" data-toggle="tooltip" title="View" data-original-title="View">
                 <i className="fa "> </i>
              </a>)
@@ -71,7 +69,7 @@ const TdActions = (props) => {
                onClick={() => deleteItem(model, recordId)} 
                className="text-danger m-1" data-placement="top" data-toggle="tooltip" title="" data-original-title="Delete">
               <i className="fa action__icons delete"> <FcFullTrash /> </i>
-           </a>)   
+           </a>)
         }
         
       </td>
@@ -143,6 +141,7 @@ const endsWith = (str, suffix) => {
 }
 
 export const EditableDataTable = (props) => {
+    
     const {rowHeaders, colHeaders} = props;
      console.log("Editable data table", rowHeaders, colHeaders);
     const [data]  = useState([]); 
@@ -206,7 +205,7 @@ const DataTable = (props) => {
 
     return (
     <>
-              <table className=" table align-items-center table-flush ">
+              <table className="table align-items-center table-flush ">
                 <TableHeader headers={tableHeaders}  showActions={props.showActions && true}/>
                 <tbody>
                 
@@ -221,7 +220,7 @@ const DataTable = (props) => {
                                 let _data = dictValuesToList(row.value);
                                 let headerRow = <Tr row_data={{value:row.key}} key={index} recordId={row.id} colspan={2} heading={true}  />
                                 let newRows =  _data.map((innerRow, innerIndex) => {
-                                   return <Tr  row_data={innerRow}  key={index+"."+innerIndex} showActions={false}  recordId={row.id} />
+                                   return <Tr  row_data={innerRow}  key={index + "."+ innerIndex } showActions={false}  recordId={row.id} />
                                 });
                                 return [headerRow, ...newRows];
                             } else {

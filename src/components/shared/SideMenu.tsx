@@ -23,6 +23,7 @@ const SideMenu = (props: any) => {
                 <li className={currentRoute === "attendees"?"active":""}><a href="/attendees"  className={currentRoute === "attendees"?"active":""}><i> <FcManager /> </i> People</a></li>
                 <li className={currentRoute === "attendance"?"active":""}><a href="/attendance"  className={currentRoute === "attendance"?"active":""}><i> <FcApproval /> </i> Attendance</a></li>
                 <li className={currentRoute === "performance"?"active":""}><a href="/performance"  className={currentRoute === "performance"?"active":""}><i> <FcStatistics /> </i> Performance </a></li>
+                
                 <li className={currentRoute === "settings"?"active":""}><a href="/settings" className={currentRoute === "settings"?"active":""}><i> <FcServices /> </i> Settings</a></li>{/* users, app settings, booking window, ranking algorithm*/}
                 {/*<li><a href="/alerts"><i className="fa fa-bell-o"></i> Alerts <span className="count">2</span></a></li>*/}
             </ul>
